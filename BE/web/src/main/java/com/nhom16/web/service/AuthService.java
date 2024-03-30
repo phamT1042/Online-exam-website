@@ -3,18 +3,20 @@ package com.nhom16.web.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.StringJoiner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.nhom16.web.exception.AppException;
 import com.nhom16.web.exception.ErrorCode;
 import com.nhom16.web.model.User;
 import com.nhom16.web.repository.UserRepository;
-import com.nhom16.web.response.AuthenResponse;
+import com.nhom16.web.response.AuthResponse;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -29,45 +31,45 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AuthenService {
+public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
     @Value("${signerKey}")
     protected String SIGNER_KEY;
 
-    public AuthenResponse authenticate(User request) {
-        var user = userRepository.findByUsername(request.getUsername());
+    public AuthResponse auth(User request) {
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        if (user == null)
-            throw new AppException(ErrorCode.USER_NOT_EXISTED);
-                
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
         if (!authenticated)
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
-        var token = generateToken(request.getUsername());
+        if (!user.getRoles().equals(request.getRoles())) {
+            throw new AppException(ErrorCode.UNAUTHORIZED);
+        }
 
-        AuthenResponse response = new AuthenResponse();
+        var token = generateToken(user);
+
+        AuthResponse response = new AuthResponse();
         response.setToken(token);
         response.setUsername(request.getUsername());
         return response;
     }
 
-    private String generateToken(String username) {
+    private String generateToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512); // đặt thuật toán SHA512 để hash
 
         // data trong body (payload) JWS gọi là các claim
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(username)
-                .issuer("http://localhost:8080") // tổ chức phát hành token (thường là domain service), trường này không
-                                                 // bắt buộc
+                .subject(user.getUsername())
                 .issueTime(new Date()) // thời điểm tạo token, ở đây là hiện tại
-                .expirationTime(new Date( // thời gian hết hạn của token, đây là 1h
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
-                .claim("customClaim", "Custom") // có thể tạo các claim do ta tự định nghĩa
+                .expirationTime(new Date( // thời gian hết hạn của token, đây là 24h
+                        Instant.now().plus(24, ChronoUnit.HOURS).toEpochMilli()))
+                .claim("scope", buildScope(user)) // roles
                 .build();
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
 
@@ -80,5 +82,13 @@ public class AuthenService {
             log.error("Cannot create token", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private String buildScope(User user) {
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        if (!CollectionUtils.isEmpty(user.getRoles()))
+            user.getRoles().forEach(role -> stringJoiner.add(role));
+
+        return stringJoiner.toString();
     }
 }

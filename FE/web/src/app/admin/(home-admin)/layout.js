@@ -11,16 +11,16 @@ import Footer from "@/components/Core/Footer";
 export default function HomeLayout({ children }) {
     const router = useRouter();
     const tabs = [
-        { name: "Trang chủ", path: "/dashboard" },
-        { name: "Hồ sơ", path: "/profile" },
-        { name: "Đăng xuất", path: "/login" }
+        {name: "Trang chủ", path: "/admin/dashboard"},
+        {name: "Thống kê", path: "/admin/statistics"},
+        {name: "Đăng xuất", path: "/admin/login"}
     ]
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
 
         if (!token && token === null) {
-            router.replace('/login');
+            router.replace('/admin/login');
         }
     }, []);
 

@@ -17,7 +17,7 @@ const page = () => {
     const [passwordErr, setPasswordErr] = useState('');
 
     useEffect(() => {
-        document.title = "Đăng nhập"
+        document.title = "Đăng nhập Admin"
     }, []);
 
     function handleBlur(type, value) {
@@ -60,7 +60,7 @@ const page = () => {
                 body: JSON.stringify({
                     username: formLogin.username,
                     password: formLogin.password,
-                    roles: [ "STUDENT" ]
+                    roles: ["ADMIN"]
                 })
             })
             const data = await res.json();
@@ -71,7 +71,10 @@ const page = () => {
                 sessionStorage.setItem('token', data.result.token)
                 sessionStorage.setItem('username', data.result.username)
 
-                router.push('/dashboard')
+                router.push('/admin/dashboard')
+            }
+            else if (data.code === 1004) {
+                message.error('Không thể đăng nhập bằng tài khoản người dùng')
             }
             else {
                 message.error('Tài khoản hoặc mật khẩu không đúng')
@@ -94,7 +97,7 @@ const page = () => {
                 <form className='form-login-register z-10' onSubmit={handleFormSubmit}>
                     <img src="../assets/logo_ptit.png" className='block mx-auto' />
 
-                    <h3 className="mt-5">Đăng nhập</h3>
+                    <h3 className="mt-5">Đăng nhập Admin</h3>
                     <h2>Hệ thống thi trắc nghiệm PTIT</h2>
 
                     {<FormElement
@@ -116,13 +119,6 @@ const page = () => {
                     />}
 
                     <button className="form-submit" type="submit">Đăng nhập</button>
-
-                    <div className="mt-4 mb-1">
-                        Hoặc
-                        <Link href='/register'>
-                            <button className="form-submit"> Đăng ký </button>
-                        </Link>
-                    </div>
                 </form>
             </main>
         </div>

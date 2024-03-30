@@ -1,5 +1,7 @@
 package com.nhom16.web.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nhom16.web.model.User;
 import com.nhom16.web.response.ApiResponse;
-import com.nhom16.web.response.AuthenResponse;
-import com.nhom16.web.service.AuthenService;
+import com.nhom16.web.response.AuthResponse;
+import com.nhom16.web.service.AuthService;
 import com.nhom16.web.service.UserService;
 
 @RestController
@@ -24,13 +26,13 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private AuthenService authenService;
+    private AuthService authenService;
 
     @PostMapping("/auth/login")
-    public ApiResponse<AuthenResponse> authenticate(@RequestBody User request) {
-        var result = authenService.authenticate(request);
+    public ApiResponse<AuthResponse> auth(@RequestBody User request) {
+        var result = authenService.auth(request);
 
-        ApiResponse<AuthenResponse> response = new ApiResponse<>();
+        ApiResponse<AuthResponse> response = new ApiResponse<>();
         response.setResult(result);
 
         return response;
@@ -44,9 +46,16 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public ApiResponse<User> getUser(@PathVariable String username) {
-        ApiResponse<User> apiResponse = new ApiResponse<>();
+    public ApiResponse<Optional<User>> getUser(@PathVariable String username) {
+        ApiResponse<Optional<User>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(userService.getUser(username));
+        return apiResponse;
+    }
+
+    @GetMapping("/profile") //get with token without username
+    public ApiResponse<Optional<User>> getProfile() {
+        ApiResponse<Optional<User>> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.getProfile());
         return apiResponse;
     }
 }

@@ -101,7 +101,6 @@ const page = () => {
                     email: formRegister.email
                 })
             })
-            console.log(res)
             const data = await res.json();
             console.log(data)
             if (data.code === 200) {
@@ -115,8 +114,6 @@ const page = () => {
             message.error("Đăng ký thất bại. Có lỗi xảy ra")
             console.log(error)
         }
-
-        console.log(formRegister)
     }
 
     return (

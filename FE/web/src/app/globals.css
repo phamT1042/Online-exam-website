@@ -21,7 +21,7 @@
   }
 
   .form-login-register {
-    @apply min-w-[485px] min-h-[100px] py-[32px] px-[24px] text-center bg-white rounded-xl m-6 self-center shadow-md;
+    @apply min-w-fit min-h-[100px] py-[32px] px-[24px] text-center bg-white rounded-xl m-6 self-center shadow-md;
   }
 
   .form-input {
@@ -29,7 +29,11 @@
   }
 
   .form-submit {
-    @apply bg-[#bb2019] mt-3 py-3 px-4 font-semibold text-white w-full rounded-md cursor-pointer hover:bg-[#f33a58];
+    @apply bg-ptit mt-3 py-3 px-4 font-semibold text-white w-full rounded-md cursor-pointer hover:bg-[#f33a58];
+  }
+
+  .ant-table table {
+    @apply text-xl
   }
 }
 
