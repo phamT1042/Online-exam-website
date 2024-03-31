@@ -10,7 +10,7 @@ export default function Layout({ children }) {
         const token = sessionStorage.getItem('token');
 
         if (token && token !== null) {
-            router.push('/dashboard');
+            router.replace('/dashboard');
         }
     }, []);
 

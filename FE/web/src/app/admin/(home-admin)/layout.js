@@ -13,6 +13,7 @@ export default function HomeLayout({ children }) {
     const tabs = [
         {name: "Trang chủ", path: "/admin/dashboard"},
         {name: "Thống kê", path: "/admin/statistics"},
+        {name: "Xem kết quả sinh viên", path: "/admin/search-student"},
         {name: "Đăng xuất", path: "/admin/login"}
     ]
 

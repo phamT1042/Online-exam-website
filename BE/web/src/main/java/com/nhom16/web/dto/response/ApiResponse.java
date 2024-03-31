@@ -1,4 +1,4 @@
-package com.nhom16.web.response;
+package com.nhom16.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

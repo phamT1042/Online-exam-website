@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhom16.web.model.User;
-import com.nhom16.web.response.ApiResponse;
-import com.nhom16.web.response.AuthResponse;
+import com.nhom16.web.dto.request.ChangePasswordRequest;
+import com.nhom16.web.dto.response.ApiResponse;
+import com.nhom16.web.dto.response.AuthResponse;
 import com.nhom16.web.service.AuthService;
 import com.nhom16.web.service.UserService;
 
@@ -58,4 +59,20 @@ public class UserController {
         apiResponse.setResult(userService.getProfile());
         return apiResponse;
     }
+
+    @PostMapping("/update-profile")
+    public ApiResponse<User> updateProfile(@RequestBody User request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.updateProfile(request));
+        return apiResponse;
+    }
+
+    @PostMapping("/update-password")
+    public ApiResponse<Boolean> postMethodName(@RequestBody ChangePasswordRequest request) {
+        ApiResponse<Boolean> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.updatePassword(request));
+        return apiResponse;
+    }
+    
+
 }

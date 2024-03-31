@@ -102,7 +102,6 @@ const page = () => {
                 })
             })
             const data = await res.json();
-            console.log(data)
             if (data.code === 200) {
                 message.success("Đăng ký thành công")
                 router.push('/login')

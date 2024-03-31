@@ -16,7 +16,7 @@ import com.nhom16.web.exception.AppException;
 import com.nhom16.web.exception.ErrorCode;
 import com.nhom16.web.model.User;
 import com.nhom16.web.repository.UserRepository;
-import com.nhom16.web.response.AuthResponse;
+import com.nhom16.web.dto.response.AuthResponse;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
