@@ -2,7 +2,7 @@ import React from 'react'
 
 const FormElement = ({ type, label, placeHolder, handleChange, handleBlur, errorVal, handleClick }) => {
     return (
-        <div className='flex mb-3 flex-col'>
+        <div className='flex flex-col'>
             <label htmlFor={type} className='text-left font-bold pt-2 text-xl'> {label} </label>
             <input
                 id={type}
@@ -14,7 +14,7 @@ const FormElement = ({ type, label, placeHolder, handleChange, handleBlur, error
                 onBlur={handleBlur}
                 onClick={handleClick}
             />
-            <span className={`text-sm pt-[3px] text-red-600 text-left ${!errorVal ? 'hidden' : ''}`}> {errorVal} </span>        
+            <span className={`min-h-6 text-sm pt-[3px] text-red-600 text-left ${!errorVal ? 'opacity-0' : ''}`}> {errorVal} </span>        
         </div>
     )
 }

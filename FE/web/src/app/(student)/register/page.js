@@ -8,7 +8,7 @@ import FormElement from '@/components/FormElement'
 
 const page = () => {
     const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    const regexPassword = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
+    const regexPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/
 
     const router = useRouter();
     const [formRegister, setFormRegister] = useState({
@@ -57,7 +57,7 @@ const page = () => {
                     setPasswordErr('Mật khẩu không được để trống');
                 }
                 else if (!regexPassword.test(value)) {
-                    setPasswordErr('Mật khẩu phải dài ít nhất 8 kí tự, chứa ít nhất 1 ký tự số và 1 ký tự chữ');
+                    setPasswordErr('Mật khẩu dài ít nhất 8 kí tự không chứa ký tự đặc biệt, chứa ít nhất 1 chữ số và 1 chữ cái');
                 }
                 else {
                     setPasswordErr('');
@@ -125,7 +125,7 @@ const page = () => {
             </div>
 
             <main className='min-h-screen flex justify-center'>
-                <form className='form-login-register z-10' onSubmit={handleFormSubmit}>
+                <form className='form-login-register z-10 w-[590px]' onSubmit={handleFormSubmit}>
                     <img src="../assets/logo_ptit.png" className='block mx-auto' />
 
                     <h3 className="mt-5">Đăng ký</h3>

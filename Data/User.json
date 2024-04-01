@@ -1,0 +1,167 @@
+[
+  {
+    "username": "B21DCCN123",
+    "password": "$2a$10$mTXiex0R/j68VxKdmF7guubDrhnhRGCS5QifywxJFTWLksxpvGk9G",
+    "email": "a3123213@gmail.com",
+    "fullName": "Phạm Văn Tiến",
+    "sex": "Nam",
+    "phone": "2103128",
+    "address": "huyện Thường Tín, thành phố Hà Nội",
+    "date": "01/03/2024",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN405",
+    "password": "$2a$10$huj/6sG03OVXfVMYQGBiA.j/MOKV1cGd4WJYfFgtUCstleGlYxXnS",
+    "email": "pvantien203@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN123",
+    "password": "$2a$10$KEifLtXud05qfgB3IhzUmeUi2p3S/Dp/.0/lI1Reh7tTsH02aMthm",
+    "email": "user1@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN124",
+    "password": "$2a$10$G4quncJax5Wlr1QhxgyGmeqpmDpGnjfQhBbhHuRV2/khN1q23X6Ga",
+    "email": "user2@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN125",
+    "password": "$2a$10$1KJOaRk51.AXtHl8WGCxo..lQZb.JC.ufDdUdWqBX9Bj4ybtSvfrW",
+    "email": "user3@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN126",
+    "password": "$2a$10$BBfNCvdc4SxcG.ubVelXRuzDz0au5z2FJAfWTo6fEGFo.izySHdpW",
+    "email": "user4@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN127",
+    "password": "$2a$10$l7D9xXqDubD27MI9A1SIDuefdyS0VVBeYdhIfmPypjTpxjFgrYSTK",
+    "email": "user5@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN128",
+    "password": "$2a$10$hBA44m9muqgl.kSMCAZ7kexXycUojm6QVWtH1NkUVbM3a90MWfnfu",
+    "email": "user6@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN129",
+    "password": "$2a$10$AQEM1v/Xct2eC7R21V6WyeCqH7yGhw0FoFMpsnzMC4xmSMcy307X.",
+    "email": "user7@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN130",
+    "password": "$2a$10$Clhfb2flUrKT5G5BVoFZrusVMOE59anJF3EKIx37sz8Kze.FWq0Xi",
+    "email": "user8@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN131",
+    "password": "$2a$10$6qcPVkklW71NtTC95OVgAOhXjHc6Hg/DTr9itOAm/X/GDe6uJY3Rq",
+    "email": "user9@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN132",
+    "password": "$2a$10$VnwVxkNet3AgHmBVErOnjusBNgA.WHFkRVmhVKMLc1Sr9YcZY.ifK",
+    "email": "user10@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN133",
+    "password": "$2a$10$ZlpFmxztAPoelgBjIt3g2.oSBwAPhvUkM.fCdSv4UqWOHXhK7/RRm",
+    "email": "user11@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN134",
+    "password": "$2a$10$8KLT/BCGNvP5q65kts7RWu3ULOQJAL.27MPmzdVvD0jO2FPJes4r6",
+    "email": "user12@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN135",
+    "password": "$2a$10$gnsy4lX.E30D9dD6vXJykOIAQP18fPLcLb2Lah4mvOnSryqKp0TzG",
+    "email": "user13@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN136",
+    "password": "$2a$10$sfB7UMjL52TF4abLahRvIuDk5HpErNxiXjQK3iw5qUbgE4JPtUOxe",
+    "email": "user14@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN137",
+    "password": "$2a$10$EsTHQs5qrngRwh7VjkAUuOdm/DY/smoO8OwTX.otSfoKFB9BbdEQi",
+    "email": "user15@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN138",
+    "password": "$2a$10$eV9mSW2mo5KDuoNqyCS6MOk0JtqehEBoLnGPXNM4mGT3xDIizwjIG",
+    "email": "user16@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN139",
+    "password": "$2a$10$5Mn00e9UOIKQvONs5GEdvuzardG8XxCgO.O4yjtLzzF8IWHUt3JCS",
+    "email": "user17@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  },
+  {
+    "username": "B21DCCN140",
+    "password": "$2a$10$AlB69FlQrU.L5YBr9SAop.p0OyDUsFE9AxrLZceFkhmKZyzSXy6z6",
+    "email": "user18@gmail.com",
+    "roles": [
+      "STUDENT"
+    ]
+  }
+]

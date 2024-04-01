@@ -193,7 +193,7 @@ const page = () => {
                         initialValues={{
                             fullName: data?.fullName,
                             email: data?.email,
-                            date: moment(data?.date, "DD/MM/YYYY"),
+                            date: data.date ? moment(data.date, "DD/MM/YYYY") : undefined,
                             address: data?.address,
                             sex: data?.sex,
                             phone: data?.phone
@@ -339,7 +339,7 @@ const page = () => {
                                     message: 'Không được bỏ trống',
                                 },
                                 {
-                                    pattern: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/,
+                                    pattern: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/,
                                     message: `Mật khẩu phải dài ít nhất 8 kí tự, chứa ít nhất 1 ký tự số và 1 ký tự chữ`
                                 }
                             ]}

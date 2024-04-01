@@ -100,6 +100,7 @@ const page = () => {
                         type="username"
                         label="Tên đăng nhập"
                         placeHolder="Nhập tên đăng nhập"
+                        handleClick={() => {if (usernameErr) setUsernameErr('')}}
                         handleChange={e => setFormLogin({ ...formLogin, username: e.target.value })}
                         handleBlur={() => handleBlur('username', formLogin.username)}
                         errorVal={usernameErr}
@@ -112,6 +113,7 @@ const page = () => {
                         handleChange={e => setFormLogin({ ...formLogin, password: e.target.value })}
                         handleBlur={() => handleBlur('password', formLogin.password)}
                         errorVal={passwordErr}
+                        handleClick={() => {if (passwordErr) setPasswordErr('')}}
                     />}
 
                     <button className="form-submit" type="submit">Đăng nhập</button>
