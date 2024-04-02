@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nhom16.web.model.User;
 import com.nhom16.web.dto.request.ChangePasswordRequest;
 import com.nhom16.web.dto.response.ApiResponse;
-import com.nhom16.web.dto.response.AuthResponse;
-import com.nhom16.web.service.AuthService;
 import com.nhom16.web.service.UserService;
 
 @RestController
@@ -25,19 +23,6 @@ import com.nhom16.web.service.UserService;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AuthService authenService;
-
-    @PostMapping("/auth/login")
-    public ApiResponse<AuthResponse> auth(@RequestBody User request) {
-        var result = authenService.auth(request);
-
-        ApiResponse<AuthResponse> response = new ApiResponse<>();
-        response.setResult(result);
-
-        return response;
-    }
 
     @PostMapping("/register")
     public ApiResponse<User> createUser(@RequestBody User request) {

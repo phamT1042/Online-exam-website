@@ -58,8 +58,7 @@ const page = () => {
                 },
                 body: JSON.stringify({
                     username: formLogin.username,
-                    password: formLogin.password,
-                    roles: ["ADMIN"]
+                    password: formLogin.password
                 })
             })
             const data = await res.json();
