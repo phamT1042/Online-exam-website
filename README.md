@@ -1,6 +1,6 @@
 # Online Exam Website
 ## Download
-- JDK 21, Maven, Apache Tomcat, sau đó chạy trong cmd kiểm tra:
+- JDK 21, Maven, sau đó chạy trong cmd kiểm tra:
 ```bash
 mvn --version
 jdk --version
