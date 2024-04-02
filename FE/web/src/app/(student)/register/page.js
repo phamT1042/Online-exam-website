@@ -90,7 +90,7 @@ const page = () => {
 
         if (!valid) return
         try {
-            const res = await fetch("http://localhost:8080/api/user/register", {
+            const res = await fetch("http://localhost:8080/api/student/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

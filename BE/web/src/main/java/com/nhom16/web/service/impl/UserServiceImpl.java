@@ -46,17 +46,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @SuppressWarnings("null")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Optional<User> getUser(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isPresent())
-            return user;
-        throw new AppException(ErrorCode.USER_NOT_EXISTED);
-    }
-
-    @Override
     public Optional<User> getProfile() {
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
@@ -111,5 +100,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    @Override
+    @SuppressWarnings("null")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Optional<User> getUser(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isPresent())
+            return user;
+        throw new AppException(ErrorCode.USER_NOT_EXISTED);
     }
 }

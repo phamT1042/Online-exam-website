@@ -20,7 +20,7 @@ public class AuthController {
     @Autowired
     private AuthService authenService;
 
-    @PostMapping("/user") // nah, client 
+    @PostMapping("/student") 
     public ApiResponse<AuthResponse> authStudent(@RequestBody User request) {
         var result = authenService.authStudent(request);
 
