@@ -52,7 +52,7 @@ const page = () => {
         if (!valid) return
 
         try {
-            const res = await fetch("http://localhost:8080/api/user/auth/login", {
+            const res = await fetch("http://localhost:8080/api/auth/login/student", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

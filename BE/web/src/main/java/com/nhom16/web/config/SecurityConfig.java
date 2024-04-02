@@ -23,7 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
         private final String[] PUBLIC_ENDPOINTS = {
-                "/api/user/register", "/api/auth/login/user", "/api/auth/login/admin"
+                "/api/user/register", "/api/auth/login/student", "/api/auth/login/admin"
         };
 
         @Value("${signerKey}")
