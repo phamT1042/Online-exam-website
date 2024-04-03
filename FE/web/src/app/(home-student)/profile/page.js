@@ -128,7 +128,7 @@ const page = () => {
     const fetchData = async () => {
         const token = sessionStorage.getItem('token');
         try {
-            const res = await fetch("http://localhost:8080/api/student/profile", {
+            const res = await fetch("http://localhost:8080/api/students/users/profile", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

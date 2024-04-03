@@ -5,13 +5,12 @@ import java.util.Optional;
 import com.nhom16.web.dto.request.ChangePasswordRequest;
 import com.nhom16.web.model.User;
 
-public interface UserService {
-    // STUDENT
+public interface StudentUserService {
     User createUser(User request);
-    Optional<User> getProfile();
-    User updateProfile(User request);
-    boolean updatePassword(ChangePasswordRequest request);
 
-    // ADMIN
-    Optional<User> getUser(String username);
+    Optional<User> getProfile();
+
+    User updateProfile(User request);
+
+    boolean updatePassword(ChangePasswordRequest request);
 }

@@ -10,44 +10,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom16.web.model.User;
 import com.nhom16.web.dto.request.ChangePasswordRequest;
 import com.nhom16.web.dto.response.ApiResponse;
-import com.nhom16.web.service.UserService;
+import com.nhom16.web.model.User;
+import com.nhom16.web.service.StudentUserService;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/students/users")
 @CrossOrigin("*")
 
-public class StudentController {
+public class StudentUserController {
     @Autowired
-    private UserService userService;
+    private StudentUserService studentUserService;
 
     @PostMapping("/register")
     public ApiResponse<User> createUser(@RequestBody User request) {
         ApiResponse<User> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.createUser(request));
+        apiResponse.setResult(studentUserService.createUser(request));
         return apiResponse;
     }
 
-    @GetMapping("/profile") //get with token without username
+    @GetMapping("/profile")
     public ApiResponse<Optional<User>> getProfile() {
         ApiResponse<Optional<User>> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.getProfile());
+        apiResponse.setResult(studentUserService.getProfile());
         return apiResponse;
     }
 
     @PostMapping("/update-profile")
     public ApiResponse<User> updateProfile(@RequestBody User request) {
         ApiResponse<User> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.updateProfile(request));
+        apiResponse.setResult(studentUserService.updateProfile(request));
         return apiResponse;
     }
 
     @PostMapping("/update-password")
     public ApiResponse<Boolean> postMethodName(@RequestBody ChangePasswordRequest request) {
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.updatePassword(request));
+        apiResponse.setResult(studentUserService.updatePassword(request));
         return apiResponse;
     }
 }

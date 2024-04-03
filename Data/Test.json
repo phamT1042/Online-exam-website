@@ -1,0 +1,122 @@
+[
+    {
+        "exam": "Kỳ thi giữa kỳ I năm học 2020-2021",
+        "name": "Mạng máy tính",
+        "type": 1,
+        "startDay": "01/01/2020",
+        "endDay": "01/01/2020",
+        "startTime": "08:00",
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Nguyên nhân cơ bản nào dẫn đến sự ra đời của mạng máy tính?",
+                "options": [
+                    "Nhu cầu trao đổi thông tin ngày càng tăng",
+                    "Khối lượng thông tin lưu trên máy tính ngày càng tăng",
+                    "Khoa học và công nghệ về lĩnh vực máy tính và truyền thông phát triển",
+                    "Cả ba câu trên đúng"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Ý nghĩa cơ bản nhất của mạng máy tính là gì?",
+                "options": [
+                    "Nâng cao độ tin cậy của hệ thống máy tính",
+                    "Nâng cao chất lượng khai thác thông tin",
+                    "Phát triển ứng dụng trên máy tính",
+                    "Trao đổi và chia sẻ thông tin"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Thuật ngữ viết tắt bằng tiếng Anh của mạng cục bộ là gì?",
+                "options": [
+                    "MAN (Metropolitan Area Network)",
+                    "WAN (Wide Area Network)",
+                    "GAN (Global Area Network)",
+                    "LAN (Local Area Network)"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Thuật ngữ viết tắt bằng tiếng Anh của mạng diện rộng là gì?",
+                "options": [
+                    "LAN (Local Area Network)",
+                    "MAN (Metropolitan Area Network)",
+                    "GAN (Global Area Network)",
+                    "WAN (Wide Area Network)"
+                ],
+                "correctOption": "D"
+            }
+        ]
+    },
+    {
+        "exam": "Kỳ thi giữa kỳ I năm học 2020-2021",
+        "name": "English Test",
+        "type": 0,
+        "startDay": "2022-06-01",
+        "endDay": "2022-06-30",
+        "startTime": "09:00",
+        "duration": 90,
+        "questions": [
+            {
+                "questionText": "What is the synonym of 'happy'?",
+                "options": ["sad", "joyful", "angry", "bored"],
+                "correctOption": "joyful"
+            },
+            {
+                "questionText": "What is the antonym of 'up'?",
+                "options": ["down", "left", "right", "forward"],
+                "correctOption": "down"
+            }
+        ],
+        "cntStudent": 150,
+        "mediumScore": 8.0,
+        "completionRate": 0.85
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2020-2021",
+        "name": "Mạng máy tính",
+        "type": 0,
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "What is 2 + 2?",
+                "options": ["2", "3", "4", "5"],
+                "correctOption": "4"
+            },
+            {
+                "questionText": "What is 3 * 3?",
+                "options": ["6", "9", "12", "15"],
+                "correctOption": "9"
+            }
+        ],
+        "cntStudent": 100,
+        "mediumScore": 7.5,
+        "completionRate": 0.8
+    },
+    {
+        "exam": "Luyện tập cuối kỳ I năm học 2020-2021",
+        "name": "Math Test",
+        "type": 1,
+        "startDay": "2022-01-01",
+        "endDay": "2022-01-31",
+        "startTime": "08:00",
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "What is 2 + 2?",
+                "options": ["2", "3", "4", "5"],
+                "correctOption": "4"
+            },
+            {
+                "questionText": "What is 3 * 3?",
+                "options": ["6", "9", "12", "15"],
+                "correctOption": "9"
+            }
+        ],
+        "cntStudent": 100,
+        "mediumScore": 7.5,
+        "completionRate": 0.8
+    }
+]
