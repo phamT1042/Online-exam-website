@@ -8,7 +8,6 @@ public class TestHistoryUserResponse {
     private String name;
     private String scoreRatio;
     private float score;
-    private String submitDay;
-    private String submitTime;
-    private byte completed;
+    private String submitTime; //dd/mm/yyyy hh:mm:ss
+    private boolean completed;
 }

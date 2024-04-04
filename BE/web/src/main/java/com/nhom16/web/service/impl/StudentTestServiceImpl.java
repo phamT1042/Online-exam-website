@@ -1,5 +1,6 @@
 package com.nhom16.web.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import com.nhom16.web.dto.response.TestDetailResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
 import com.nhom16.web.dto.response.TestResponse;
 import com.nhom16.web.dto.response.TestResultResponse;
+import com.nhom16.web.model.Test;
 import com.nhom16.web.model.TestUser;
 import com.nhom16.web.model.User;
 import com.nhom16.web.repository.TestRepository;
@@ -87,8 +89,24 @@ public class StudentTestServiceImpl implements StudentTestService {
         Optional<User> option = userRepository.findByUsername(username);
         User user = option.get();
         
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getHistoryUser'");
+        List<TestUser> tests = testUserRepository.findByUserId(user.getId());
+        List<TestHistoryUserResponse> responses = new ArrayList<>();
+
+        for (TestUser test : tests) {
+            TestHistoryUserResponse response = new TestHistoryUserResponse();
+            log.info(test.getId());
+            Test testDetail = testRepository.findById(test.getTestId()).get();
+            response.setExam(testDetail.getExam());
+            response.setName(testDetail.getName());
+            response.setScoreRatio(test.getScoreRatio());
+            response.setScore(test.getScore());
+            response.setSubmitTime(test.getSubmitDay() + " " + test.getSubmitTime());
+            response.setCompleted(test.isCompleted());
+
+            responses.add(response);
+        }
+
+        return responses;
     }
 
 }
