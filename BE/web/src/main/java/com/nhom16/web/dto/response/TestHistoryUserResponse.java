@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class TestHistoryUserResponse {
+    private String id;
     private String exam;
     private String name;
     private String scoreRatio;

@@ -94,8 +94,8 @@ public class StudentTestServiceImpl implements StudentTestService {
 
         for (TestUser test : tests) {
             TestHistoryUserResponse response = new TestHistoryUserResponse();
-            log.info(test.getId());
             Test testDetail = testRepository.findById(test.getTestId()).get();
+            response.setId(testDetail.getId());
             response.setExam(testDetail.getExam());
             response.setName(testDetail.getName());
             response.setScoreRatio(test.getScoreRatio());

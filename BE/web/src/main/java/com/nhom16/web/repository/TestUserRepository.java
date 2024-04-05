@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TestUserRepository extends MongoRepository<TestUser, String> {
     List<TestUser> findByUserId(String userId);
+    TestUser findByUserIdAndTestId(String userId, String testId);
 }

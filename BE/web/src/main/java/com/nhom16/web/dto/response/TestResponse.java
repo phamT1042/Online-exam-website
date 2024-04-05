@@ -13,9 +13,10 @@ public class TestResponse {
     private String startTime; // thời gian mở
     private int duration; // thời gian thi
 
-    // Bài thi có thể vào thi trong 2 TH:
-    // 1. Bài thi tự do
-    // 2. Bài thi trong thời gian mở đóng và chưa có dữ liệu
+    // Bài thi có thể vào thi trong 3 TH:
+    // 1. Bài thi tự do và student chưa từng làm, ở FE có thể hiện "Vào thi"
+    // 2. Bài thi tự do và student đã từng làm, FE có thể hiện "Làm lại"
+    // 3. Bài thi trong thời gian mở đóng và chưa có dữ liệu
     // user này trong db (kiểm tra userId testId đã tồn tại trong db TestUser)
-    private byte canEnter; // 1 có thể vào, 0 thì k
+    private boolean canEnter; // true là có thể vào
 }

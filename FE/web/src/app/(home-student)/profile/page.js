@@ -169,6 +169,7 @@ const page = () => {
                     <Table
                         dataSource={dataTest}
                         columns={columns}
+                        rowKey="id"
                     />
                 </div>
             </div>

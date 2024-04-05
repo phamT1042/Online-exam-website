@@ -12,10 +12,6 @@
 }
 
 @layer components {
-  .ant-message {
-    @apply text-8xl;
-  }
-
   .nav-item {
     @apply inline-block mr-10 text-white hover:text-slate-200 text-xl;
   }
@@ -30,10 +26,6 @@
 
   .form-submit {
     @apply bg-ptit mt-3 py-3 px-4 font-semibold text-white w-full rounded-md cursor-pointer hover:bg-[#f33a58];
-  }
-
-  .ant-table table {
-    @apply text-xl
   }
 }
 
