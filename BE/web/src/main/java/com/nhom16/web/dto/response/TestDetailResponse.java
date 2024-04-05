@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class TestDetailResponse {
     private List<QuestionResponse> questions;
-    private int duration;
+    private int duration; //phút
 }

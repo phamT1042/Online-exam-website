@@ -3,6 +3,8 @@ package com.nhom16.web.service;
 import java.util.List;
 
 import com.nhom16.web.dto.response.SearchUserResponse;
+import com.nhom16.web.dto.response.TestHistoryUserResponse;
+import com.nhom16.web.dto.response.TestResultResponse;
 import com.nhom16.web.model.User;
 
 public interface AdminUserService {
@@ -16,5 +18,9 @@ public interface AdminUserService {
 
     boolean deleteUser(String userId); // Dung
 
-    SearchUserResponse getUserByUsernameAndFullname(String username, String fullname);
+    List<SearchUserResponse> getUserForSearch(String name);
+
+    List<TestHistoryUserResponse> getHistoryUser(String userId);
+
+    TestResultResponse getHistoryDetailUser(String userId, String testId);
 }
