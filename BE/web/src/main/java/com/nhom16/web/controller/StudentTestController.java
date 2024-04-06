@@ -16,6 +16,7 @@ import com.nhom16.web.dto.response.TestDetailResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
 import com.nhom16.web.dto.response.TestResponse;
 import com.nhom16.web.dto.response.TestResultResponse;
+import com.nhom16.web.model.Answer;
 import com.nhom16.web.model.TestUser;
 import com.nhom16.web.service.StudentTestService;
 
@@ -42,9 +43,9 @@ public class StudentTestController {
     }
 
     @PostMapping("/{testId}/score")
-    public ApiResponse<TestUser> calcScore(@PathVariable String testId, @RequestBody List<String> choices) {
+    public ApiResponse<TestUser> calcScore(@PathVariable String testId, @RequestBody Answer answer) {
         ApiResponse<TestUser> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(studentTestService.calcScore(testId, choices));
+        apiResponse.setResult(studentTestService.calcScore(testId, answer));
         return apiResponse;
     }
 
