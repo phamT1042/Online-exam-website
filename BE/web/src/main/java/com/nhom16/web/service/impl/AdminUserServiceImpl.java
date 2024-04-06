@@ -130,7 +130,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             response.setExam(testDetail.getExam());
             response.setName(testDetail.getName());
             response.setScore(test.getScore());
-            response.setSubmitTime(test.getSubmitDay() + " " + test.getSubmitTime());
+            response.setSubmitTime(test.getSubmitTime());
             response.setCompleted(test.isCompleted());
 
             responses.add(response);

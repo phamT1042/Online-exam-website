@@ -9,8 +9,7 @@ public class StatisticUserResponse {
     private float score;
     private String scoreRatio; // kiểu "32/40"
     private boolean completed; // true: hoàn thành
-    private String submitDay;
-    private String submitTime;
+    private String submitTime; // dd/mm/yyyy hh:mm:ss
 
     // Từ các score, vẽ chart phân phối điểm số thôi cũng được
 }
