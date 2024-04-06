@@ -12,6 +12,7 @@ import com.nhom16.web.dto.response.TestDetailResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
 import com.nhom16.web.dto.response.TestResponse;
 import com.nhom16.web.dto.response.TestResultResponse;
+import com.nhom16.web.model.Answer;
 import com.nhom16.web.model.Test;
 import com.nhom16.web.model.TestUser;
 import com.nhom16.web.model.User;
@@ -55,7 +56,7 @@ public class StudentTestServiceImpl implements StudentTestService {
     }
 
     @Override
-    public TestUser calcScore(String testId, List<String> choices) {
+    public TestUser calcScore(String testId, Answer answer) {
         // get user with token
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();

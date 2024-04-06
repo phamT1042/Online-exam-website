@@ -19,7 +19,7 @@ public class Test {
 
     private String exam;
     private String name;
-    private byte type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
+    private int type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
     private String startDay; // ngày mở đóng
     private String endDay;
     private String startTime; // thời gian mở
