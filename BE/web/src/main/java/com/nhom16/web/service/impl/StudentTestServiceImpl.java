@@ -1,10 +1,12 @@
 package com.nhom16.web.service.impl;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,8 +111,10 @@ public class StudentTestServiceImpl implements StudentTestService {
         String timeNow = dtf.format(LocalDateTime.now());
 
         // Format date
-        DecimalFormat df1 = new DecimalFormat("0.0");
-        DecimalFormat df2 = new DecimalFormat("0.00");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setDecimalSeparator('.');
+        DecimalFormat df1 = new DecimalFormat("0.0", symbols);
+        DecimalFormat df2 = new DecimalFormat("0.00", symbols);
 
         for (int i = 0; i < cntQuestion; ++i)
             if (questions.get(i).getCorrectOption().equals(choices.get(i)))
@@ -171,8 +175,10 @@ public class StudentTestServiceImpl implements StudentTestService {
                 float mediumScorePrev = test.getMediumScore();
                 float completionRatePrev = test.getCompletionRate();
 
-                float mediumScoreNew = Float.valueOf(df1.format((mediumScorePrev * cntStudentPrev + score) / (cntStudentPrev + 1)));
-                float completionRateNew = Float.valueOf(df2.format((completionRatePrev * cntStudentPrev + (score >= 4 ? 1 : 0)) / (cntStudentPrev + 1)));
+                float mediumScoreNew = Float
+                        .valueOf(df1.format((mediumScorePrev * cntStudentPrev + score) / (cntStudentPrev + 1)));
+                float completionRateNew = Float.valueOf(df2
+                        .format((completionRatePrev * cntStudentPrev + (score >= 4 ? 1 : 0)) / (cntStudentPrev + 1)));
 
                 test.setMediumScore(mediumScoreNew);
                 test.setCompletionRate(completionRateNew);
