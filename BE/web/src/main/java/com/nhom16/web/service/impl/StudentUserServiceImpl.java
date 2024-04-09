@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,13 +14,13 @@ import com.nhom16.web.exception.AppException;
 import com.nhom16.web.exception.ErrorCode;
 import com.nhom16.web.model.User;
 import com.nhom16.web.repository.UserRepository;
-import com.nhom16.web.service.UserService;
+import com.nhom16.web.service.StudentUserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class StudentUserServiceImpl implements StudentUserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -43,17 +42,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
 
         return userRepository.save(user);
-    }
-
-    @Override
-    @SuppressWarnings("null")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Optional<User> getUser(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isPresent())
-            return user;
-        throw new AppException(ErrorCode.USER_NOT_EXISTED);
     }
 
     @Override
@@ -112,4 +100,5 @@ public class UserServiceImpl implements UserService {
 
         return true;
     }
+
 }

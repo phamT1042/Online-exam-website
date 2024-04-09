@@ -1,0 +1,443 @@
+[
+    {
+        "exam": "Kỳ thi giữa kỳ I năm học 2023-2024",
+        "name": "Mạng máy tính",
+        "type": 1,
+        "startDay": "01/01/2024",
+        "endDay": "01/01/2024",
+        "startTime": "08:00",
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Nguyên nhân cơ bản nào dẫn đến sự ra đời của mạng máy tính?",
+                "options": [
+                    "Nhu cầu trao đổi thông tin ngày càng tăng",
+                    "Khối lượng thông tin lưu trên máy tính ngày càng tăng",
+                    "Khoa học và công nghệ về lĩnh vực máy tính và truyền thông phát triển",
+                    "Cả ba câu trên đúng"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Ý nghĩa cơ bản nhất của mạng máy tính là gì?",
+                "options": [
+                    "Nâng cao độ tin cậy của hệ thống máy tính",
+                    "Nâng cao chất lượng khai thác thông tin",
+                    "Phát triển ứng dụng trên máy tính",
+                    "Trao đổi và chia sẻ thông tin"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Thuật ngữ viết tắt bằng tiếng Anh của mạng cục bộ là gì?",
+                "options": [
+                    "MAN (Metropolitan Area Network)",
+                    "WAN (Wide Area Network)",
+                    "GAN (Global Area Network)",
+                    "LAN (Local Area Network)"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Thuật ngữ viết tắt bằng tiếng Anh của mạng diện rộng là gì?",
+                "options": [
+                    "LAN (Local Area Network)",
+                    "MAN (Metropolitan Area Network)",
+                    "GAN (Global Area Network)",
+                    "WAN (Wide Area Network)"
+                ],
+                "correctOption": "D"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Mạng máy tính",
+        "type": 0,
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Protocol nào được sử dụng cho mạng Internet:",
+                "options": [
+                    "TCP/IP",
+                    "IPX/SPX",
+                    "Netbeui",
+                    "Cả ba câu trên đúng"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Các chuẩn JPEG, TIFF, ASCII, EBCDIC do tầng nào của mô hình OSI định nghĩa:",
+                "options": [
+                    "Presentation",
+                    "Application",
+                    "Network",
+                    "Transport"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Thiết bị Router cho phép::",
+                "options": [
+                    "Định tuyến cho các packet, chia nhỏ các Collision Domain nhưng không chia nhỏ các Broadcast Domain",
+                    "Kéo dài 1 nhánh LAN thông qua việc khuyếch đại tín hiệu truyền đến nó",
+                    "Kết nối nhiều máy tính lại với nhau",
+                    "Liên kết nhiều mạng LAN lại với nhau, đồng thời ngăn không cho các packet thuộc loại Broadcast đi qua nó và giúp việc định tuyến cho các packets"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Thiết bị Bridge cho phép:",
+                "options": [
+                    "Kết nối 2 mạng LAN lại với nhau đồng thời đóng vai trò như một bộ lọc (filter): Chỉ cho phép các packet mà địa chỉ đích nằm ngoài nhánh LAN mà packet xuất phát, đi qua",
+                    "Ngăn không cho các packet thuộc loại Broadcast đi qua nó",
+                    "Giúp định tuyến cho các packets",
+                    "Tăng cường tín hiệu điện để mở rộng đoạn mạng"
+                ],
+                "correctOption": "A"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Lập trình Java",
+        "type": 0,
+        "duration": 90,
+        "questions": [
+            {
+                "questionText": "Java là ngôn ngữ lập trình được phát triển bởi công ty nào?",
+                "options": [
+                    "Microsoft",
+                    "Google",
+                    "Apple",
+                    "Sun Microsystems"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Đâu là đặc điểm chính của Java?",
+                "options": [
+                    "Mạnh mẽ và hiệu quả",
+                    "Dễ học và sử dụng",
+                    "Đa nền tảng và dễ di động",
+                    "Tất cả đều đúng"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Trong Java, các đối tượng được tạo ra từ lớp nào?",
+                "options": [
+                    "Object",
+                    "Class",
+                    "Interface",
+                    "Method"
+                ],
+                "correctOption": "B"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Toán cao cấp",
+        "type": 0,
+        "duration": 90,
+        "questions": [
+            {
+                "questionText": "Khái niệm nào sau đây không phải là một phép biến đổi của số phức?",
+                "options": [
+                    "Phép cộng",
+                    "Phép trừ",
+                    "Phép nhân",
+                    "Phép chia"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Biểu thức tương đương của |a| là gì?",
+                "options": [
+                    "sqrt(a^2)",
+                    "a",
+                    "-a",
+                    "Không có câu trả lời nào đúng"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Đạo hàm của hàm số f(x) = x^n là gì?",
+                "options": [
+                    "f'(x) = n * x^(n-1)",
+                    "f'(x) = n * x^n",
+                    "f'(x) = x^(n-1)",
+                    "f'(x) = x^n + C"
+                ],
+                "correctOption": "A"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Vật lý cơ bản",
+        "type": 0,
+        "duration": 75,
+        "questions": [
+            {
+                "questionText": "Tốc độ ánh sáng trong chân không là bao nhiêu?",
+                "options": [
+                    "3.00 x 10^8 m/s",
+                    "2.00 x 10^8 m/s",
+                    "3.50 x 10^8 m/s",
+                    "2.50 x 10^8 m/s"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Đơn vị nào sau đây không phải là đơn vị của áp suất?",
+                "options": [
+                    "Pascal",
+                    "Newton",
+                    "Bar",
+                    "Atmosphere"
+                ],
+                "correctOption": "B"
+            },
+            {
+                "questionText": "Áp suất được định nghĩa là gì?",
+                "options": [
+                    "Lực tác động lên một đơn vị diện tích",
+                    "Độ dài của một vật",
+                    "Khối lượng của một vật",
+                    "Tốc độ di chuyển của một vật"
+                ],
+                "correctOption": "A"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Lịch sử thế giới",
+        "type": 0,
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Cuộc Cách mạng Công nghiệp bắt đầu từ thế kỷ nào?",
+                "options": [
+                    "Thế kỷ 16",
+                    "Thế kỷ 17",
+                    "Thế kỷ 18",
+                    "Thế kỷ 19"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Ai là người đưa ra lý thuyết Vận động cơ của Hành tinh?",
+                "options": [
+                    "Nicolaus Copernicus",
+                    "Galileo Galilei",
+                    "Johannes Kepler",
+                    "Isaac Newton"
+                ],
+                "correctOption": "C"
+            },
+            {
+                "questionText": "Cuộc Cách mạng Pháp bắt đầu vào năm nào?",
+                "options": [
+                    "1789",
+                    "1799",
+                    "1809",
+                    "1819"
+                ],
+                "correctOption": "A"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Tin học cơ sở",
+        "type": 0,
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Mạng máy tính được định nghĩa là gì?",
+                "options": [
+                    "Một tập hợp các máy tính kết nối với nhau để trao đổi thông tin và tài nguyên",
+                    "Một loại máy tính đặc biệt được sử dụng cho mạng",
+                    "Một dạng của Internet",
+                    "Một loại máy tính có thể chạy các ứng dụng mạng"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Phần cứng nào sau đây không phải là một phần của một máy tính?",
+                "options": [
+                    "CPU",
+                    "RAM",
+                    "Router",
+                    "Hard Drive"
+                ],
+                "correctOption": "C"
+            },
+            {
+                "questionText": "Địa chỉ IP (Internet Protocol) có bao nhiêu bit?",
+                "options": [
+                    "8",
+                    "16",
+                    "32",
+                    "64"
+                ],
+                "correctOption": "C"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Sinh học phân tử",
+        "type": 0,
+        "duration": 90,
+        "questions": [
+            {
+                "questionText": "ADN là viết tắt của gì?",
+                "options": [
+                    "Acetylcholinesterase Deoxyribonucleic",
+                    "Adenosine Deoxyribonucleic",
+                    "Adenosine Diethylamide",
+                    "Acid Diethylamide Nucleic"
+                ],
+                "correctOption": "B"
+            },
+            {
+                "questionText": "Nền tảng của cấu trúc 3D của protein là gì?",
+                "options": [
+                    "Mạch",
+                    "Liên kết hydro",
+                    "Liên kết peptid",
+                    "Liên kết cộng hóa trị"
+                ],
+                "correctOption": "C"
+            },
+            {
+                "questionText": "Quá trình sao chép ADN gồm các bước nào?",
+                "options": [
+                    "Rã, đảo, kết hợp",
+                    "Rã, tái tổ hợp, tổ hợp",
+                    "Rã, dịch chuyển, hợp nhất",
+                    "Rã, sao chép, hợp nhất"
+                ],
+                "correctOption": "D"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ I năm học 2023-2024",
+        "name": "Khoa học xã hội",
+        "type": 0,
+        "duration": 75,
+        "questions": [
+            {
+                "questionText": "Quốc gia nào sau đây có chính trị thụ động?",
+                "options": [
+                    "Thụy Sĩ",
+                    "Nhật Bản",
+                    "Mỹ",
+                    "Singapore"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Nền tảng của triết học nguyên thủy là gì?",
+                "options": [
+                    "Tôn giáo",
+                    "Đạo đức",
+                    "Kiến thức",
+                    "Tất cả các phương án đều sai"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Ai là tác giả của cuốn sách 'Chủ nghĩa Mác-Lênin'?",
+                "options": [
+                    "Karl Marx",
+                    "Friedrich Engels",
+                    "Vladimir Lenin",
+                    "Joseph Stalin"
+                ],
+                "correctOption": "C"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ II năm học 2023-2024",
+        "name": "Toán học căn bản",
+        "type": 0,
+        "duration": 60,
+        "questions": [
+            {
+                "questionText": "Phép tính nào sau đây không phải là phép tính cơ bản?",
+                "options": [
+                    "Cộng",
+                    "Trừ",
+                    "Nhân",
+                    "Chia"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "10^2 bằng bao nhiêu?",
+                "options": [
+                    "10",
+                    "100",
+                    "1000",
+                    "1"
+                ],
+                "correctOption": "B"
+            },
+            {
+                "questionText": "3! bằng bao nhiêu?",
+                "options": [
+                    "3",
+                    "6",
+                    "9",
+                    "12"
+                ],
+                "correctOption": "B"
+            }
+        ]
+    },
+    {
+        "exam": "Luyện tập giữa kỳ II năm học 2023-2024",
+        "name": "Ngữ văn",
+        "type": 0,
+        "duration": 75,
+        "questions": [
+            {
+                "questionText": "Tác phẩm 'Số đỏ' của tác giả nào?",
+                "options": [
+                    "Nam Cao",
+                    "Nguyễn Nhật Ánh",
+                    "Ngô Tất Tố",
+                    "Vũ Trọng Phụng"
+                ],
+                "correctOption": "D"
+            },
+            {
+                "questionText": "Nhà văn nào là tác giả của 'Truyện Kiều'?",
+                "options": [
+                    "Nguyễn Du",
+                    "Nguyễn Trãi",
+                    "Hồ Xuân Hương",
+                    "Tản Đà"
+                ],
+                "correctOption": "A"
+            },
+            {
+                "questionText": "Cuốn sách 'Vừa đi vừa khóc' của tác giả nào?",
+                "options": [
+                    "Nguyễn Nhật Ánh",
+                    "Nguyễn Trãi",
+                    "Vũ Trọng Phụng",
+                    "Nam Cao"
+                ],
+                "correctOption": "A"
+            }
+        ]
+    }
+]

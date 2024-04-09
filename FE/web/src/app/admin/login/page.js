@@ -51,15 +51,14 @@ const page = () => {
         if (!valid) return
 
         try {
-            const res = await fetch("http://localhost:8080/api/user/auth/login", {
+            const res = await fetch("http://localhost:8080/api/auth/login/admin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     username: formLogin.username,
-                    password: formLogin.password,
-                    roles: ["ADMIN"]
+                    password: formLogin.password
                 })
             })
             const data = await res.json();

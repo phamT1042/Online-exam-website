@@ -6,129 +6,61 @@ import { useRouter } from 'next/navigation'
 import { Table, message } from 'antd'
 
 const page = () => {
-    const [data, setData] = useState({})
-    const router = useRouter()
-    // const [dataSource, setDataSource] = useState({})
-    const dataSource = [
-        {
-            key: '1',
-            test: 'Mạng máy tính',
-            exam: "Kỳ thi cuối kỳ I năm 2021-2022",
-            result: '33/40',
-            score: 8.50
-        },
-        {
-            key: '2',
-            test: 'Mạng máy tính',
-            exam: "Kỳ thi cuối kỳ I năm 2021-2022",
-            result: '33/40',
-            score: 8.50
-        },
-        {
-            key: '3',
-            test: 'Lập trình C++',
-            exam: "Kỳ thi giữa kỳ II năm 2021-2022",
-            result: '28/40',
-            score: 7.00
-        },
-        {
-            key: '4',
-            test: 'Lập trình Java',
-            exam: "Kỳ thi cuối kỳ II năm 2021-2022",
-            result: '35/40',
-            score: 8.75
-        },
-        {
-            key: '5',
-            test: 'Lập trình Python',
-            exam: "Kỳ thi giữa kỳ I năm 2022-2023",
-            result: '30/40',
-            score: 7.50
-        },
-        {
-            key: '6',
-            test: 'Lập trình Web',
-            exam: "Kỳ thi cuối kỳ I năm 2022-2023",
-            result: '38/40',
-            score: 9.50
-        },
-        {
-            key: '7',
-            test: 'Lập trình C#',
-            exam: "Kỳ thi giữa kỳ II năm 2022-2023",
-            result: '32/40',
-            score: 8.00
-        },
-        {
-            key: '8',
-            test: 'Lập trình JavaScript',
-            exam: "Kỳ thi cuối kỳ II năm 2022-2023",
-            result: '34/40',
-            score: 8.50
-        },
-        {
-            key: '9',
-            test: 'Lập trình C#',
-            exam: "Kỳ thi giữa kỳ II năm 2022-2023",
-            result: '32/40',
-            score: 8.00
-        },
-        {
-            key: '10',
-            test: 'Lập trình JavaScript',
-            exam: "Kỳ thi cuối kỳ II năm 2022-2023",
-            result: '34/40',
-            score: 8.50
-        },
-        {
-            key: '11',
-            test: 'Lập trình JavaScript',
-            exam: "Kỳ thi cuối kỳ II năm 2022-2023",
-            result: '34/40',
-            score: 8.50
-        },
-        {
-            key: '12',
-            test: 'Lập trình JavaScript',
-            exam: "Kỳ thi cuối kỳ II năm 2022-2023",
-            result: '34/40',
-            score: 8.50
-        },
+    const [dataProfile, setDataProfile] = useState({})
+    const [dataTest, setDataTest] = useState([])
 
-    ];
+    const router = useRouter()
 
     const columns = [
         {
-            title: <div className='text-xl'>Tên bài thi</div>, // Change font size here
-            dataIndex: 'test',
-            key: 'test',
+            title: <div className='text-xl'>STT</div>,
+            key: 'index',
+            render: (text, record, index) => <div style={{ fontSize: '18px' }}>{index + 1}</div>,
+        },
+        {
+            title: <div className='text-xl'>Thời gian nộp</div>, // Change font size here
+            dataIndex: 'submitTime',
+            key: 'submitTime',
             render: text => <div style={{ fontSize: '18px' }}>{text}</div>,
         },
         {
-            title: <div className='text-xl'>Kỳ thi</div>,
+            title: <div className='text-xl'>Tên bài thi</div>, // Change font size here
+            dataIndex: 'name',
+            key: 'name',
+            render: text => <div style={{ fontSize: '18px' }}>{text}</div>,
+        },
+        {
+            title: <div className='text-xl'>Kỳ thi</div>, // Change font size here
             dataIndex: 'exam',
             key: 'exam',
             render: text => <div style={{ fontSize: '18px' }}>{text}</div>,
         },
         {
-            title: <div className='text-xl'>Kết quả</div>,
-            dataIndex: 'result',
-            key: 'result',
+            title: <div className='text-xl'>Số câu trả lời đúng</div>,
+            dataIndex: 'scoreRatio',
+            key: 'scoreRatio',
             render: text => <div style={{ fontSize: '18px' }}>{text}</div>,
         },
         {
-            title: <div className='text-xl'>Điểm số</div>,
+            title: <div className='text-xl'>Điểm</div>,
             dataIndex: 'score',
             key: 'score',
             render: text => <div style={{ fontSize: '18px' }}>{text}</div>,
             sorter: (a, b) => a.score - b.score
-        }
+        },
+        {
+            title: <div className='text-xl'>Trạng thái</div>,
+            dataIndex: 'completed',
+            key: 'completed',
+            render: text => <div style={{ fontSize: '18px' }}>{text ? "Hoàn thành" : "Không hoàn thành"}</div>,
+        },
+        
     ];
 
-    const fetchData = async () => {
+    const fetchDataProfile = async () => {
         const token = sessionStorage.getItem('token');
         try {
-            const res = await fetch("http://localhost:8080/api/user/profile", {
+            const res = await fetch("http://localhost:8080/api/students/users/profile", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -139,7 +71,7 @@ const page = () => {
             const fetchData = await res.json();
 
             if (fetchData.code === 200) {
-                setData(fetchData.result);
+                setDataProfile(fetchData.result);
             }
             else {
                 message.error('Error network')
@@ -149,9 +81,34 @@ const page = () => {
         }
     }
 
+    const fetchDataTest = async () => {
+        const token = sessionStorage.getItem('token');
+        try {
+            const res = await fetch("http://localhost:8080/api/students/tests/history", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const fetchData = await res.json();
+
+            if (fetchData.code === 200) {
+                setDataTest(fetchData.result);
+            }
+            else {
+                message.error('Error network')
+            }
+        } catch (error) {
+            message.error('Error catch fetch history test')
+        }
+    }
+
     useEffect(() => {
         document.title = "Hồ sơ"
-        fetchData()
+        fetchDataProfile()
+        fetchDataTest()
     }, []);
 
     return (
@@ -164,7 +121,7 @@ const page = () => {
                             <div className='size-36'>
                                 <img src="https://code.ptit.edu.vn/2020/images/avt.png" alt="User image"></img>
                             </div>
-                            <p className='mt-1 text-xl font-semibold'> {data.fullName} </p>
+                            <p className='mt-1 text-xl font-semibold'> {dataProfile?.fullName} </p>
                             <button
                                 className='form-submit w-1/2'
                                 onClick={() => router.push('/edit')}
@@ -174,44 +131,45 @@ const page = () => {
                         </li>
                         <li>
                             <div>
-                                <p className='mt-1 text-xl font-semibold'> Tên tài khoản: <span className='text-gray-500 font-light'> {data?.username} </span>
+                                <p className='mt-1 text-xl font-semibold'> Tên tài khoản: <span className='text-gray-500 font-light'> {dataProfile?.username} </span>
                                 </p>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <p className='mt-5 text-xl font-semibold'> Email: <span className='text-gray-500 font-light'> {data?.email} </span> </p>
+                                <p className='mt-5 text-xl font-semibold'> Email: <span className='text-gray-500 font-light'> {dataProfile?.email} </span> </p>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <p className='mt-5 text-xl font-semibold'> Ngày sinh: <span className='text-gray-500 font-light'> {data?.date} </span> </p>
+                                <p className='mt-5 text-xl font-semibold'> Ngày sinh: <span className='text-gray-500 font-light'> {dataProfile?.date} </span> </p>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <p className='mt-5 text-xl font-semibold'> Giới tính: <span className='text-gray-500 font-light'> {data?.sex} </span> </p>
+                                <p className='mt-5 text-xl font-semibold'> Giới tính: <span className='text-gray-500 font-light'> {dataProfile?.sex} </span> </p>
                             </div>
                         </li>
                         <li>
                             <div>
                                 <p className='mt-5 text-xl font-semibold'> Địa chỉ: </p>
-                                <span className='text-gray-500 font-light text-xl'> {data?.address} </span>
+                                <span className='text-gray-500 font-light text-xl'> {dataProfile?.address} </span>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <p className='mt-5 text-xl font-semibold'> SĐT: <span className='text-gray-500 font-light'> {data?.phone} </span> </p>
+                                <p className='mt-5 text-xl font-semibold'> SĐT: <span className='text-gray-500 font-light'> {dataProfile?.phone} </span> </p>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                {/* History exam */}
+                {/* History test */}
                 <div className='ml-2 flex-[0_0_60%]'>
                     <Table
-                        dataSource={dataSource}
+                        dataSource={dataTest}
                         columns={columns}
+                        rowKey="id"
                     />
                 </div>
             </div>
