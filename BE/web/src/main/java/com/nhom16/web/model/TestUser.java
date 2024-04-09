@@ -25,5 +25,5 @@ public class TestUser {
 
     private String submitTime; // dạng dd/mm/yyyy hh:mm:ss, xử lý bên be khi tính điểm
 
-    private boolean completed; // 1 là hoàn thành (> 4d), 0 là k
+    private boolean completed; // true là hoàn thành (> 4d)
 }
