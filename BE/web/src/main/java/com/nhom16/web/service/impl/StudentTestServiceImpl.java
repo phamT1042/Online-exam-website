@@ -61,7 +61,7 @@ public class StudentTestServiceImpl implements StudentTestService {
         Optional<Test> testFind = testRepository.findById(testId);
 
         if (testFind.isEmpty())
-            throw new AppException(ErrorCode.EXAM_NOT_EXITS);
+            throw new AppException(ErrorCode.TEST_NOT_EXIST);
 
         Test test = testFind.get();
 
@@ -88,7 +88,7 @@ public class StudentTestServiceImpl implements StudentTestService {
     public TestUser calcScore(String testId, Answer answer) {
         Optional<Test> testFind = testRepository.findById(testId);
         if (testFind.isEmpty())
-            throw new AppException(ErrorCode.EXAM_NOT_EXITS);
+            throw new AppException(ErrorCode.TEST_NOT_EXIST);
 
         Test test = testFind.get();
         // get user with token
@@ -121,6 +121,9 @@ public class StudentTestServiceImpl implements StudentTestService {
         TestUser saveTestUser = testUserRepository.findByUserIdAndTestId(user.getId(), testId);
 
         if (saveTestUser != null) {
+            if (test.getType() == 1)
+                throw new AppException(ErrorCode.TEST_CANNOT_BE_RETAKEN);
+
             saveTestUser.setScoreRatio(String.valueOf(cntCorrect) + "/" + String.valueOf(cntQuestion));
 
             saveTestUser.setChoices(answer.getChoices());
@@ -133,8 +136,8 @@ public class StudentTestServiceImpl implements StudentTestService {
             float cntCompletionRateNew = cntCompletionRatePrev - (saveTestUser.isCompleted() ? 1 : 0)
                     + (score >= 4 ? 1 : 0);
 
-            test.setMediumScore(allScoreNew / test.getCntStudent());
-            test.setCompletionRate(cntCompletionRateNew / test.getCntStudent());
+            test.setMediumScore(Float.valueOf(df1.format(allScoreNew / test.getCntStudent())));
+            test.setCompletionRate(Float.valueOf(df2.format(cntCompletionRateNew / test.getCntStudent())));
             saveTestUser.setScore(score);
             saveTestUser.setCompleted(score >= 4 ? true : false);
 
@@ -168,9 +171,11 @@ public class StudentTestServiceImpl implements StudentTestService {
                 float mediumScorePrev = test.getMediumScore();
                 float completionRatePrev = test.getCompletionRate();
 
-                test.setMediumScore((mediumScorePrev * cntStudentPrev + score) / (cntStudentPrev + 1));
-                test.setCompletionRate(
-                        (completionRatePrev * cntStudentPrev + (score >= 4 ? 1 : 0)) / (cntStudentPrev + 1));
+                float mediumScoreNew = Float.valueOf(df1.format((mediumScorePrev * cntStudentPrev + score) / (cntStudentPrev + 1)));
+                float completionRateNew = Float.valueOf(df2.format((completionRatePrev * cntStudentPrev + (score >= 4 ? 1 : 0)) / (cntStudentPrev + 1)));
+
+                test.setMediumScore(mediumScoreNew);
+                test.setCompletionRate(completionRateNew);
                 test.setCntStudent(cntStudentPrev + 1);
             }
 
