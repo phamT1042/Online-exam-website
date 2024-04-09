@@ -35,21 +35,21 @@ public class StudentTestController {
         return apiResponse;
     }
 
-    @GetMapping("/{testId}/detail")
+    @GetMapping("/detail/{testId}")
     public ApiResponse<TestDetailResponse> getTestDetail(@PathVariable String testId) {
         ApiResponse<TestDetailResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.getTestDetail(testId));
         return apiResponse;
     }
 
-    @PostMapping("/{testId}/score")
+    @PostMapping("/score/{testId}")
     public ApiResponse<TestUser> calcScore(@PathVariable String testId, @RequestBody Answer answer) {
         ApiResponse<TestUser> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.calcScore(testId, answer));
         return apiResponse;
     }
 
-    @GetMapping("/{testId}/result")
+    @GetMapping("/result/{testId}")
     public ApiResponse<TestResultResponse> getResult(@PathVariable String testId) {
         ApiResponse<TestResultResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.getResult(testId));
