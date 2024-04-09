@@ -1,37 +1,18 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import { Spin } from 'antd';
-import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 const page = () => {
-    const [test, setTest] = useState(null);
-    const { id } = useParams();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const token = sessionStorage.getItem('token');
-            try {
-                const response = await fetch(`http://localhost:8080/api/admin/tests/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                const data = await response.json();
-                setTest(data.result);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    if (!test) {
-        return <Spin />;
-    }
+    const [test, setTest] = useState({
+        exam: '',
+        name: '',
+        type: 1,
+        startDay: '',
+        endDay: '',
+        startTime: '',
+        duration: 60,
+        questions: [{ questionText: '', options: ['', '', '', ''], correctOption: '' }],
+    });
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
@@ -72,6 +53,7 @@ const page = () => {
         list.splice(index, 1);
         setTest(prevState => ({ ...prevState, questions: list }));
     };
+
     return (
         <form onSubmit={handleSubmit}>
             {/* Render test fields */}
@@ -81,7 +63,7 @@ const page = () => {
             </label>
             {/* ... */}
             {/* Render question fields */}
-            {test?.questions?.map((x, i) => (
+            {test.questions.map((x, i) => (
                 <div key={i}>
                     <label>
                         Question Text:
@@ -103,7 +85,7 @@ const page = () => {
             <button type="button" onClick={handleAddQuestion} className='form-submit'>+</button>
             <button type="submit" className='form-submit'>Submit</button>
         </form>
-    )
+    );
 }
 
 export default page
