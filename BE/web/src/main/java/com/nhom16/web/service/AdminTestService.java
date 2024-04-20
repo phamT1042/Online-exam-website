@@ -3,10 +3,11 @@ package com.nhom16.web.service;
 import java.util.List;
 
 import com.nhom16.web.dto.response.StatisticUserResponse;
+import com.nhom16.web.dto.response.TestAdminResponse;
 import com.nhom16.web.model.Test;
 
 public interface AdminTestService {
-    List<Test> getTests(); // Dung, chỉ bao gồm thông tin
+    List<TestAdminResponse> getTests(); // Dung, chỉ bao gồm thông tin
 
     Test createTest(Test request); // Dung
 

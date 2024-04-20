@@ -2,6 +2,7 @@ package com.nhom16.web.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -45,35 +46,71 @@ public class AdminUserServiceImpl implements AdminUserService {
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+        var res = userRepository.findAll();
+        return res;
+//        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User getUserById(String userId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+        var res = userRepository.findById(userId);
+        return res.get();
+//        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User createUser(User request) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+        User curUser = new User();
+        curUser.setUsername(request.getUsername());
+        curUser.setPassword(request.getPassword());
+        curUser.setEmail(request.getEmail());
+        curUser.setFullName(request.getFullName());
+        curUser.setSex(request.getSex());
+        curUser.setPhone(request.getPhone());
+        curUser.setAddress(request.getAddress());
+        curUser.setPhoto(request.getPhoto());
+        curUser.setDate(request.getDate());
+        curUser.setRoles(request.getRoles());
+        return userRepository.save(curUser);
+//        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User updateUser(String userId, User request) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        var res = userRepository.findById(userId);
+        User curUser = res.get();
+        curUser.setUsername(request.getUsername());
+        curUser.setPassword(request.getPassword());
+        curUser.setEmail(request.getEmail());
+        curUser.setFullName(request.getFullName());
+        curUser.setSex(request.getSex());
+        curUser.setPhone(request.getPhone());
+        curUser.setAddress(request.getAddress());
+        curUser.setPhoto(request.getPhoto());
+        curUser.setDate(request.getDate());
+        curUser.setRoles(request.getRoles());
+        return userRepository.save(curUser);
+//        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public boolean deleteUser(String userId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+        var res = userRepository.findById(userId);
+        if(res.isPresent())
+        {
+            userRepository.deleteById(userId);
+            return true;
+        }
+        return false;
+//        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
     }
 
     // @Override

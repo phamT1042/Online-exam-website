@@ -2,6 +2,7 @@ package com.nhom16.web.controller;
 
 import java.util.List;
 
+import com.nhom16.web.dto.response.TestAdminResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,8 +28,8 @@ public class AdminTestController {
     private AdminTestService adminTestService;
 
     @GetMapping
-    public ApiResponse<List<Test>> getTests() {
-        ApiResponse<List<Test>> apiResponse = new ApiResponse<>();
+    public ApiResponse<List<TestAdminResponse>> getTests() {
+        ApiResponse<List<TestAdminResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminTestService.getTests());
         return apiResponse;
     }

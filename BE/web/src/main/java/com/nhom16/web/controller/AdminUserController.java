@@ -2,16 +2,9 @@ package com.nhom16.web.controller;
 
 import java.util.List;
 
+import com.nhom16.web.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.nhom16.web.dto.response.ApiResponse;
 import com.nhom16.web.dto.response.SearchUserResponse;
@@ -39,6 +32,13 @@ public class AdminUserController {
     public ApiResponse<User> getUserById(@PathVariable String userId) {
         ApiResponse<User> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminUserService.getUserById(userId));
+        return apiResponse;
+    }
+
+    @PostMapping
+    public ApiResponse<User> createUser(@RequestBody User request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(adminUserService.createUser(request));
         return apiResponse;
     }
 
