@@ -51,7 +51,7 @@ const page = () => {
         if (!valid) return
 
         try {
-            const res = await fetch("http://localhost:8080/api/auth/login/admin", {
+            const res = await fetch("http://localhost:8080/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -64,15 +64,16 @@ const page = () => {
             const data = await res.json();
             console.log(data)
             if (data.code === 200) {
-                message.success('Đăng nhập thành công')
-
-                sessionStorage.setItem('token', data.result.token)
-                sessionStorage.setItem('username', data.result.username)
-
-                router.push('/admin/dashboard')
-            }
-            else if (data.code === 1004) {
-                message.error('Không thể đăng nhập bằng tài khoản người dùng')
+                if (data.result.roles.includes("ADMIN")) {
+                    message.success('Đăng nhập thành công')
+            
+                    sessionStorage.setItem('token', data.result.token)
+                    sessionStorage.setItem('username', data.result.username)
+            
+                    router.push('/admin/dashboard')
+                } else {
+                    message.error('Tài khoản không có quyền truy cập')
+                }
             }
             else {
                 message.error('Tài khoản hoặc mật khẩu không đúng')

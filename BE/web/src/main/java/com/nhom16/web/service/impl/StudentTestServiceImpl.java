@@ -284,6 +284,7 @@ public class StudentTestServiceImpl implements StudentTestService {
             response.setId(testDetail.getId());
             response.setExam(testDetail.getExam());
             response.setName(testDetail.getName());
+            response.setScoreRatio(test.getScoreRatio());
             response.setScore(test.getScore());
             response.setSubmitTime(test.getSubmitTime());
             response.setCompleted(test.isCompleted());
