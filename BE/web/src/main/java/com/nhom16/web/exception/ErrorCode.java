@@ -5,10 +5,10 @@ public enum ErrorCode {
     USER_EXISTED(1001, "User existed"),
     USER_NOT_EXISTED(1002, "User not exist"),
     UNAUTHENTICATED(1003, "Unauthenticated"),
-    UNAUTHORIZED(1004, "Unauthorized"),
-    PASSWORD_WRONG(1005, "Password incorrect"),
-    TEST_NOT_EXIST(1006, "Test is not exist"),
-    TEST_CANNOT_BE_RETAKEN(1007, "Test cannot be retaken");
+    PASSWORD_WRONG(1004, "Password incorrect"),
+    TEST_NOT_EXIST(1005, "Test is not exist"),
+    TEST_CANNOT_BE_RETAKEN(1006, "Test cannot be retaken"),
+    TEST_HASNOT_BEEN_TAKEN(1006, "The test has not yet been performed"); // Bài thi chưa được làm bởi user
 
     private int code;
     private String message;

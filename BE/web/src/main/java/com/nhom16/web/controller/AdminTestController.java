@@ -2,7 +2,9 @@ package com.nhom16.web.controller;
 
 import java.util.List;
 
-import com.nhom16.web.dto.response.TestAdminResponse;
+import com.nhom16.web.dto.response.TestInformationResponse;
+import com.nhom16.web.dto.response.TestStatisticResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhom16.web.dto.response.ApiResponse;
-import com.nhom16.web.dto.response.StatisticUserResponse;
+import com.nhom16.web.dto.response.TestStatisticUserResponse;
 import com.nhom16.web.model.Test;
 import com.nhom16.web.service.AdminTestService;
 
@@ -28,8 +30,8 @@ public class AdminTestController {
     private AdminTestService adminTestService;
 
     @GetMapping
-    public ApiResponse<List<TestAdminResponse>> getTests() {
-        ApiResponse<List<TestAdminResponse>> apiResponse = new ApiResponse<>();
+    public ApiResponse<List<TestInformationResponse>> getTests() {
+        ApiResponse<List<TestInformationResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminTestService.getTests());
         return apiResponse;
     }
@@ -56,22 +58,22 @@ public class AdminTestController {
     }
 
     @DeleteMapping("/{testId}")
-    public ApiResponse<Boolean> deleteTest(@PathVariable String testId) {
-        ApiResponse<Boolean> apiResponse = new ApiResponse<>();
+    public ApiResponse<String> deleteTest(@PathVariable String testId) {
+        ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminTestService.deleteTest(testId));
         return apiResponse;
     }
 
     @GetMapping("/statistics")
-    public ApiResponse<List<Test>> getTestStatistic() {
-        ApiResponse<List<Test>> apiResponse = new ApiResponse<>();
+    public ApiResponse<List<TestStatisticResponse>> getTestStatistic() {
+        ApiResponse<List<TestStatisticResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminTestService.getTestStatistic());
         return apiResponse;
     }
 
     @GetMapping("/statistics/{testId}")
-    public ApiResponse<List<StatisticUserResponse>> getStatisticUsers(@PathVariable String testId) {
-        ApiResponse<List<StatisticUserResponse>> apiResponse = new ApiResponse<>();
+    public ApiResponse<List<TestStatisticUserResponse>> getStatisticUsers(@PathVariable String testId) {
+        ApiResponse<List<TestStatisticUserResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminTestService.getStatisticUsers(testId));
         return apiResponse;
     }

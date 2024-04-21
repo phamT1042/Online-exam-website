@@ -14,9 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.nhom16.web.dto.response.QuestionResponse;
-import com.nhom16.web.dto.response.TestDetailResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
-import com.nhom16.web.dto.response.TestResponse;
+import com.nhom16.web.dto.response.TestInformationResponse;
+import com.nhom16.web.dto.response.TestQuestionResponse;
 import com.nhom16.web.dto.response.TestResultResponse;
 import com.nhom16.web.exception.AppException;
 import com.nhom16.web.exception.ErrorCode;
@@ -30,10 +30,7 @@ import com.nhom16.web.repository.TestUserRepository;
 import com.nhom16.web.repository.UserRepository;
 import com.nhom16.web.service.StudentTestService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class StudentTestServiceImpl implements StudentTestService {
 
     @Autowired
@@ -46,7 +43,7 @@ public class StudentTestServiceImpl implements StudentTestService {
     private UserRepository userRepository;
 
     @Override
-    public List<TestResponse> getTestsForUser() {
+    public List<TestInformationResponse> getTestsForUser() {
         // get user with token
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
@@ -54,12 +51,58 @@ public class StudentTestServiceImpl implements StudentTestService {
         Optional<User> option = userRepository.findByUsername(username);
         User user = option.get();
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTestsForUser'");
+        List<TestInformationResponse> testResponse = new ArrayList<>();
+        List<Test> tests = testRepository.findAll();
+
+        for (Test test : tests) {
+            TestInformationResponse curTestResponse = new TestInformationResponse();
+            curTestResponse.setId(test.getId());
+            curTestResponse.setExam(test.getExam());
+            curTestResponse.setName(test.getName());
+            curTestResponse.setType(test.getType());
+            curTestResponse.setStartDay(test.getStartDay());
+            curTestResponse.setEndDay(test.getEndDay());
+            curTestResponse.setStartTime(test.getStartTime());
+            curTestResponse.setDuration(test.getDuration());
+
+            TestUser testHistoryUser = testUserRepository.findByUserIdAndTestId(user.getId(), test.getId());
+
+            // 1: có thể "Vào thi"
+            // 2: có thể "Làm lại"
+            // 0: không thể làm
+            if (testHistoryUser == null) {
+                // chưa từng làm
+                if (test.getType() == 0)
+                    curTestResponse.setCanEnter(1);
+                else {
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime startDateTime = LocalDateTime.parse(test.getStartDay() + " " + test.getStartTime(),
+                            formatter);
+                    LocalDateTime endDateTime = LocalDateTime.parse(test.getEndDay() + " 23:59", formatter);
+
+                    if (currentDateTime.isAfter(startDateTime) && currentDateTime.isBefore(endDateTime)) 
+                        curTestResponse.setCanEnter(1);
+                    else 
+                        curTestResponse.setCanEnter(0);
+                }
+            } else {
+                // từng làm
+                if (test.getType() == 0) 
+                    // tu do, tung lam
+                    curTestResponse.setCanEnter(2);
+                else 
+                    curTestResponse.setCanEnter(0);
+            }
+
+            testResponse.add(curTestResponse);
+        }
+
+        return testResponse;
     }
 
     @Override
-    public TestDetailResponse getTestDetail(String testId) {
+    public TestQuestionResponse getTestDetail(String testId) {
         Optional<Test> testFind = testRepository.findById(testId);
 
         if (testFind.isEmpty())
@@ -67,7 +110,7 @@ public class StudentTestServiceImpl implements StudentTestService {
 
         Test test = testFind.get();
 
-        TestDetailResponse response = new TestDetailResponse();
+        TestQuestionResponse response = new TestQuestionResponse();
 
         response.setName(test.getName());
         response.setDuration(test.getDuration());
@@ -87,7 +130,7 @@ public class StudentTestServiceImpl implements StudentTestService {
     }
 
     @Override
-    public TestUser calcScore(String testId, Answer answer) {
+    public String calcScore(String testId, Answer answer) {
         Optional<Test> testFind = testRepository.findById(testId);
         if (testFind.isEmpty())
             throw new AppException(ErrorCode.TEST_NOT_EXIST);
@@ -110,7 +153,7 @@ public class StudentTestServiceImpl implements StudentTestService {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String timeNow = dtf.format(LocalDateTime.now());
 
-        // Format date
+        // Format floating point numbers
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
         symbols.setDecimalSeparator('.');
         DecimalFormat df1 = new DecimalFormat("0.0", symbols);
@@ -188,7 +231,8 @@ public class StudentTestServiceImpl implements StudentTestService {
             testRepository.save(test);
         }
 
-        return testUserRepository.save(saveTestUser);
+        testUserRepository.save(saveTestUser);
+        return username + " đã nộp bài thi " + test.getName() + " thành công";
     }
 
     @Override
@@ -203,6 +247,9 @@ public class StudentTestServiceImpl implements StudentTestService {
         TestResultResponse response = new TestResultResponse();
 
         TestUser testUser = testUserRepository.findByUserIdAndTestId(user.getId(), testId);
+
+        if (testUser == null)
+            throw new AppException(ErrorCode.TEST_HASNOT_BEEN_TAKEN);
         Test testDetail = testRepository.findById(testId).get();
         User userDetail = userRepository.findById(user.getId()).get();
 
@@ -237,7 +284,6 @@ public class StudentTestServiceImpl implements StudentTestService {
             response.setId(testDetail.getId());
             response.setExam(testDetail.getExam());
             response.setName(testDetail.getName());
-            response.setScoreRatio(test.getScoreRatio());
             response.setScore(test.getScore());
             response.setSubmitTime(test.getSubmitTime());
             response.setCompleted(test.isCompleted());
