@@ -38,7 +38,7 @@ public class StudentUserController {
     }
 
     @PutMapping("/update-password")
-    public ApiResponse<String> postMethodName(@RequestBody ChangePasswordRequest request) {
+    public ApiResponse<String> updatePassword(@RequestBody ChangePasswordRequest request) {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentUserService.updatePassword(request));
         return apiResponse;
