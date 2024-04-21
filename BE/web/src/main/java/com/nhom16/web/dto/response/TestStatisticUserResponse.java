@@ -3,7 +3,7 @@ package com.nhom16.web.dto.response;
 import lombok.Data;
 
 @Data
-public class StatisticUserResponse {
+public class TestStatisticUserResponse {
     private String username;
     private String fullname;
     private float score;

@@ -3,15 +3,7 @@ package com.nhom16.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.nhom16.web.dto.response.ApiResponse;
 import com.nhom16.web.dto.response.SearchUserResponse;
@@ -42,6 +34,13 @@ public class AdminUserController {
         return apiResponse;
     }
 
+    @PostMapping
+    public ApiResponse<User> createUser(@RequestBody User request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(adminUserService.createUser(request));
+        return apiResponse;
+    }
+
     @PutMapping("/{userId}")
     public ApiResponse<User> updateUser(@PathVariable String userId, @RequestBody User request) {
         ApiResponse<User> apiResponse = new ApiResponse<>();
@@ -50,8 +49,8 @@ public class AdminUserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ApiResponse<Boolean> deleteUser(@PathVariable String userId) {
-        ApiResponse<Boolean> apiResponse = new ApiResponse<>();
+    public ApiResponse<String> deleteUser(@PathVariable String userId) {
+        ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminUserService.deleteUser(userId));
         return apiResponse;
     }

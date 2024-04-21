@@ -16,7 +16,7 @@ public interface AdminUserService {
 
     User updateUser(String userId, User request); // Dung
 
-    boolean deleteUser(String userId); // Dung
+    String deleteUser(String userId); // Dung
 
     List<SearchUserResponse> getUserForSearch(String name);
 

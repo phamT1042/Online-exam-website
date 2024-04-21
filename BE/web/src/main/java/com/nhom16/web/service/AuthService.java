@@ -3,6 +3,7 @@ package com.nhom16.web.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.StringJoiner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,41 +39,23 @@ public class AuthService {
     @Value("${signerKey}")
     protected String SIGNER_KEY;
 
-    public User check(String username, String password, String role) {
-        User user = userRepository.findByUsername(username)
+    public AuthResponse auth(User request) {
+        User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        boolean authenticated = passwordEncoder.matches(password, user.getPassword());
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
         if (!authenticated)
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
-        if (!user.getRoles().contains(role)) 
-            throw new AppException(ErrorCode.UNAUTHORIZED);
-
-        return user;
-    }
-
-    public AuthResponse authAdmin(User request) {
-        User user = check(request.getUsername(), request.getPassword(), "ADMIN");
-
         var token = generateToken(user);
 
         AuthResponse response = new AuthResponse();
         response.setToken(token);
         response.setUsername(request.getUsername());
-        return response;
-    }
+        response.setRoles(user.getRoles());
 
-    public AuthResponse authStudent(User request) { 
-        User user = check(request.getUsername(), request.getPassword(), "STUDENT");
-
-        var token = generateToken(user);
-
-        AuthResponse response = new AuthResponse();
-        response.setToken(token);
-        response.setUsername(request.getUsername());
         return response;
     }
 
@@ -106,5 +89,24 @@ public class AuthService {
             user.getRoles().forEach(role -> stringJoiner.add(role));
 
         return stringJoiner.toString();
+    }
+
+    public User createUser(User request) {
+        if (userRepository.findByUsername(request.getUsername()).isPresent()
+                || userRepository.findByEmail(request.getEmail()).isPresent())
+            throw new AppException(ErrorCode.USER_EXISTED);
+
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        HashSet<String> roles = new HashSet<>();
+        roles.add("STUDENT");
+        user.setRoles(roles);
+
+        return userRepository.save(user);
     }
 }

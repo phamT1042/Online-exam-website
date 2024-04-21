@@ -1,6 +1,5 @@
 package com.nhom16.web.service.impl;
 
-import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +15,10 @@ import com.nhom16.web.model.User;
 import com.nhom16.web.repository.UserRepository;
 import com.nhom16.web.service.StudentUserService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class StudentUserServiceImpl implements StudentUserService {
     @Autowired
     private UserRepository userRepository;
-
-    @Override
-    public User createUser(User request) {
-        if (userRepository.findByUsername(request.getUsername()).isPresent()
-                || userRepository.findByEmail(request.getEmail()).isPresent())
-            throw new AppException(ErrorCode.USER_EXISTED);
-
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        HashSet<String> roles = new HashSet<>();
-        roles.add("STUDENT");
-        user.setRoles(roles);
-
-        return userRepository.save(user);
-    }
 
     @Override
     public Optional<User> getProfile() {
@@ -56,14 +32,12 @@ public class StudentUserServiceImpl implements StudentUserService {
     }
 
     @Override
-    public User updateProfile(User request) {
+    public String updateProfile(User request) {
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
 
         Optional<User> option = userRepository.findByUsername(username);
         User user = option.get();
-
-        log.info(request.getFullName());
 
         if (request.getFullName() != null)
             user.setFullName(request.getFullName());
@@ -75,14 +49,20 @@ public class StudentUserServiceImpl implements StudentUserService {
             user.setSex(request.getSex());
         if (request.getAddress() != null)
             user.setAddress(request.getAddress());
-        if (request.getEmail() != null)
-            user.setEmail(request.getEmail());
 
-        return userRepository.save(user);
+        if (request.getEmail() != null) {
+            if (userRepository.findByEmail(request.getEmail()).isPresent())
+                throw new AppException(ErrorCode.USER_EXISTED);
+
+            user.setEmail(request.getEmail());
+        }
+
+        userRepository.save(user);
+        return "Cập nhật thông tin cá nhân cho username: " + username + " thành công";
     }
 
     @Override
-    public boolean updatePassword(ChangePasswordRequest request) {
+    public String updatePassword(ChangePasswordRequest request) {
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
 
@@ -98,7 +78,7 @@ public class StudentUserServiceImpl implements StudentUserService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
 
-        return true;
+        return "Cập nhật mật khẩu cho username: " + username + " thành công";
     }
 
 }

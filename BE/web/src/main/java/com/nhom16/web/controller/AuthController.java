@@ -13,16 +13,16 @@ import com.nhom16.web.dto.response.AuthResponse;
 import com.nhom16.web.service.AuthService;
 
 @RestController
-@RequestMapping("/api/auth/login")
+@RequestMapping("/api/auth")
 @CrossOrigin("*")
 
 public class AuthController {
     @Autowired
     private AuthService authenService;
 
-    @PostMapping("/student") 
+    @PostMapping("/login") 
     public ApiResponse<AuthResponse> authStudent(@RequestBody User request) {
-        var result = authenService.authStudent(request);
+        var result = authenService.auth(request);
 
         ApiResponse<AuthResponse> response = new ApiResponse<>();
         response.setResult(result);
@@ -30,14 +30,11 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/admin") 
-    public ApiResponse<AuthResponse> authAdmin(@RequestBody User request) {
-        var result = authenService.authAdmin(request);
-
-        ApiResponse<AuthResponse> response = new ApiResponse<>();
-        response.setResult(result);
-
-        return response;
+    @PostMapping("/register") 
+    public ApiResponse<User> createUser(@RequestBody User request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(authenService.createUser(request));
+        return apiResponse;
     }
 
 }

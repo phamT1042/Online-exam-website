@@ -1,7 +1,11 @@
 package com.nhom16.web.service.impl;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,6 +13,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.nhom16.web.dto.response.SearchUserResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
@@ -23,10 +29,7 @@ import com.nhom16.web.repository.TestUserRepository;
 import com.nhom16.web.repository.UserRepository;
 import com.nhom16.web.service.AdminUserService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
@@ -44,44 +47,138 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+        Query query = new Query();
+        query.addCriteria(
+                new Criteria().andOperator(
+                        Criteria.where("roles").nin("ADMIN")));
+        List<User> users = mongoTemplate.find(query, User.class);
+
+        return users;
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User getUserById(String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+        var res = userRepository.findById(userId);
+        if (res.isEmpty())
+            throw new AppException(ErrorCode.USER_NOT_EXISTED);
+        return res.get();
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User createUser(User request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+        if (userRepository.findByUsername(request.getUsername()).isPresent()
+                || userRepository.findByEmail(request.getEmail()).isPresent())
+            throw new AppException(ErrorCode.USER_EXISTED);
+
+        User curUser = new User();
+
+        curUser.setUsername(request.getUsername());
+        curUser.setEmail(request.getEmail());
+
+        if (request.getFullName() != null)
+            curUser.setFullName(request.getFullName());
+        if (request.getSex() != null)
+            curUser.setSex(request.getSex());
+        if (request.getPhone() != null)
+            curUser.setPhone(request.getPhone());
+        if (request.getAddress() != null)
+            curUser.setAddress(request.getAddress());
+        if (request.getDate() != null)
+            curUser.setDate(request.getDate());
+
+        if (request.getRoles() != null)
+            curUser.setRoles(request.getRoles());
+        else {
+            HashSet<String> roles = new HashSet<>();
+            roles.add("STUDENT");
+            curUser.setRoles(roles);
+        }
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        curUser.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        return userRepository.save(curUser);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User updateUser(String userId, User request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        var res = userRepository.findById(userId);
+        User curUser = res.get();
+
+        if (request.getUsername() != null && request.getUsername() != curUser.getUsername()) {
+            if (userRepository.findByUsername(request.getUsername()).isPresent())
+                throw new AppException(ErrorCode.USER_EXISTED);
+            else
+                curUser.setUsername(request.getUsername());
+        }
+        if (request.getEmail() != null && request.getEmail() != curUser.getEmail()) {
+            if (userRepository.findByEmail(request.getEmail()).isPresent())
+                throw new AppException(ErrorCode.USER_EXISTED);
+            else
+                curUser.setEmail(request.getEmail());
+        }
+        if (request.getPassword() != null) {
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+            curUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        if (request.getFullName() != null)
+            curUser.setFullName(request.getFullName());
+        if (request.getSex() != null)
+            curUser.setSex(request.getSex());
+        if (request.getPhone() != null)
+            curUser.setPhone(request.getPhone());
+        if (request.getAddress() != null)
+            curUser.setAddress(request.getAddress());
+        if (request.getDate() != null)
+            curUser.setDate(request.getDate());
+        if (request.getRoles() != null)
+            curUser.setRoles(request.getRoles());
+
+        return userRepository.save(curUser);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public boolean deleteUser(String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
-    }
+    public String deleteUser(String userId) {
+        var res = userRepository.findById(userId);
+        if (res.isPresent()) {
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setDecimalSeparator('.');
+            DecimalFormat df1 = new DecimalFormat("0.0", symbols);
+            DecimalFormat df2 = new DecimalFormat("0.00", symbols);
 
-    // @Override
-    // @PreAuthorize("hasRole('ADMIN')")
-    // public List<SearchUserResponse> getUserByUsernameOrFullname(String request) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
-    // }
+            String username = res.get().getUsername();
+            // Thay đổi dữ liệu thống kê các bài thi user này đã tham gia + xoá lịch sử thi
+            List<TestUser> historyTests = testUserRepository.findByUserId(userId);
+
+            for (TestUser historyTest : historyTests) {
+                Test test = testRepository.findById(historyTest.getTestId()).get();
+
+                float mediumScoreNew = Float
+                        .valueOf(df1.format((test.getMediumScore() * test.getCntStudent() - historyTest.getScore())
+                        / (test.getCntStudent() - 1)));
+                float completionRateNew = Float.valueOf(df2
+                        .format((test.getCompletionRate() * test.getCntStudent() - (historyTest.getScore() >= 4 ? 1 : 0))
+                        / (test.getCntStudent() - 1)));
+
+                test.setMediumScore(mediumScoreNew);
+                test.setCompletionRate(completionRateNew);
+                test.setCntStudent(test.getCntStudent() - 1);
+
+                testRepository.save(test);
+            }
+
+            testUserRepository.deleteAllByUserId(userId);
+            userRepository.deleteById(userId);
+
+            return "Xoá user có username: " + username + " thành công";
+        }
+        throw new AppException(ErrorCode.USER_NOT_EXISTED);
+    }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
@@ -95,7 +192,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                                 Criteria.where("username").regex(name, "i"))));
         List<User> users = mongoTemplate.find(query, User.class);
 
-        if (users.isEmpty()) 
+        if (users.isEmpty())
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
 
         List<SearchUserResponse> searchUsers = new ArrayList<SearchUserResponse>();
