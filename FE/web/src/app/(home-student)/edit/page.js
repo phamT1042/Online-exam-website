@@ -88,7 +88,7 @@ const page = () => {
         const token = sessionStorage.getItem('token');
         try {
             const res = await fetch("http://localhost:8080/api/students/users/update-profile", {
-                method: "POST",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     'Authorization': `Bearer ${token}`
@@ -122,7 +122,7 @@ const page = () => {
         const token = sessionStorage.getItem('token');
         try {
             const res = await fetch("http://localhost:8080/api/students/users/update-password", {
-                method: "POST",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     'Authorization': `Bearer ${token}`
