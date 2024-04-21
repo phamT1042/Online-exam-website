@@ -24,7 +24,6 @@ public class User {
     private String sex;
     private String phone;
     private String address;
-    private String photo;
     private String date;
     private Set<String> roles; // ADMIN - STUDENT
 }

@@ -14,20 +14,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Test {
+    // Information
     @Id
     private String id;
-
     private String exam;
     private String name;
-    private int type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
+    private Integer type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
     private String startDay; // ngày mở đóng
     private String endDay;
     private String startTime; // thời gian mở
     private int duration; // thời gian thi, giá trị theo phút
 
+    // Questions
     private List<Question> questions;
 
+    // Statistics
     private int cntStudent; // số học sinh đã tham gia
     private float mediumScore; // điểm trung bình tất cả hs tham gia
-    private float completionRate; // tỉ lệ hoàn thành (số hs trên 4 điểm)
+    private float completionRate; // tỉ lệ hoàn thành (số hs >= 4 điểm)
 }

@@ -2,7 +2,6 @@ package com.nhom16.web.controller;
 
 import java.util.List;
 
-import com.nhom16.web.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +49,8 @@ public class AdminUserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ApiResponse<Boolean> deleteUser(@PathVariable String userId) {
-        ApiResponse<Boolean> apiResponse = new ApiResponse<>();
+    public ApiResponse<String> deleteUser(@PathVariable String userId) {
+        ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setResult(adminUserService.deleteUser(userId));
         return apiResponse;
     }

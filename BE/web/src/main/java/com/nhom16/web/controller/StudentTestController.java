@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhom16.web.dto.response.ApiResponse;
-import com.nhom16.web.dto.response.TestDetailResponse;
 import com.nhom16.web.dto.response.TestHistoryUserResponse;
-import com.nhom16.web.dto.response.TestResponse;
+import com.nhom16.web.dto.response.TestInformationResponse;
+import com.nhom16.web.dto.response.TestQuestionResponse;
 import com.nhom16.web.dto.response.TestResultResponse;
 import com.nhom16.web.model.Answer;
-import com.nhom16.web.model.TestUser;
 import com.nhom16.web.service.StudentTestService;
 
 @RestController
@@ -29,22 +28,22 @@ public class StudentTestController {
     private StudentTestService studentTestService;
 
     @GetMapping
-    public ApiResponse<List<TestResponse>> getTestsForUser() {
-        ApiResponse<List<TestResponse>> apiResponse = new ApiResponse<>();
+    public ApiResponse<List<TestInformationResponse>> getTestsForUser() {
+        ApiResponse<List<TestInformationResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.getTestsForUser());
         return apiResponse;
     }
 
-    @GetMapping("/detail/{testId}")
-    public ApiResponse<TestDetailResponse> getTestDetail(@PathVariable String testId) {
-        ApiResponse<TestDetailResponse> apiResponse = new ApiResponse<>();
+    @GetMapping("/questions/{testId}")
+    public ApiResponse<TestQuestionResponse> getTestDetail(@PathVariable String testId) {
+        ApiResponse<TestQuestionResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.getTestDetail(testId));
         return apiResponse;
     }
 
-    @PostMapping("/score/{testId}")
-    public ApiResponse<TestUser> calcScore(@PathVariable String testId, @RequestBody Answer answer) {
-        ApiResponse<TestUser> apiResponse = new ApiResponse<>();
+    @PostMapping("/submit/{testId}")
+    public ApiResponse<String> calcScore(@PathVariable String testId, @RequestBody Answer answer) {
+        ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentTestService.calcScore(testId, answer));
         return apiResponse;
     }

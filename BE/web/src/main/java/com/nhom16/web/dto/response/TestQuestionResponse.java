@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class TestDetailResponse {
+public class TestQuestionResponse {
     private String name;
     private List<QuestionResponse> questions;
     private int duration; //phút
