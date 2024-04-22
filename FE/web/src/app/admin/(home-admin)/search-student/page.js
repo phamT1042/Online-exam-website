@@ -1,16 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+
 import SearchIcon from '@mui/icons-material/Search';
 import CircularProgress from '@mui/material/CircularProgress';
-import { message, Collapse, Space, Table } from 'antd'
+import { message, Space } from 'antd'
+
+import SearchStudentElement from '@/components/SearchStudentElement';
 
 export default function TestDetail() {
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState('')
+
     const [dataSearch, setDataSearch] = useState([])
-    const [dataTestSearch, setDataTestSearch] = useState([])
-    const [dataTestDetail, setDataTestDetail] = useState()
 
     const handleSearch = async () => {
         setIsLoading(true);
@@ -28,7 +30,6 @@ export default function TestDetail() {
 
             if (check.code === 200) {
                 setDataSearch(check.result)
-                console.log(dataSearch)
             }
             setIsLoading(false);
         } catch (error) {
@@ -58,38 +59,11 @@ export default function TestDetail() {
                 </div>
 
                 <Space direction="vertical" size={'middle'} className='mt-7 w-1/2'>
-                    {dataSearch.map((user) => (
-                        <Collapse
-                            className='bg-ptit'
-                            size='middle'
-                            key={user.id}
-                            collapsible="header"
-                            defaultActiveKey={['0']}
-                            items={[
-                                {
-                                    key: user.id,
-                                    label: <h1 className='text-white'> {user.fullname ? `${user.fullname} - ${user.username}` : user.username} </h1>,
-                                    children: (
-                                        // <Table dataSource={/* your data source */} columns={/* your columns */} />
-                                        <></>
-                                    ),
-                                },
-                            ]}
-                        />
+                    {dataSearch.map((user, index) => (
+                        <SearchStudentElement user={user} key={index} />
                     ))}
                 </Space>
             </div>
-
-            {/* <div class="overlay hidden"></div> */}
-
-            {/* <section class="modal hidden">
-                <div class="flex">
-                    <button class="btn-close" onClick="closeModal()">⨉</button>
-                </div>
-                <div id="exam-details" style="overflow: auto">
-                    <!-- exam detail will be add here -->
-                </div>
-            </section> */}
         </section>
     )
 }
