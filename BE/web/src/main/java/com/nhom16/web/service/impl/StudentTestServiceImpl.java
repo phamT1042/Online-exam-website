@@ -60,8 +60,7 @@ public class StudentTestServiceImpl implements StudentTestService {
             curTestResponse.setExam(test.getExam());
             curTestResponse.setName(test.getName());
             curTestResponse.setType(test.getType());
-            curTestResponse.setStartDay(test.getStartDay());
-            curTestResponse.setEndDay(test.getEndDay());
+            curTestResponse.setEndTime(test.getEndTime());
             curTestResponse.setStartTime(test.getStartTime());
             curTestResponse.setDuration(test.getDuration());
 
@@ -75,23 +74,23 @@ public class StudentTestServiceImpl implements StudentTestService {
                 if (test.getType() == 0)
                     curTestResponse.setCanEnter(1);
                 else {
-                    LocalDateTime currentDateTime = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime startDateTime = LocalDateTime.parse(test.getStartDay() + " " + test.getStartTime(),
-                            formatter);
-                    LocalDateTime endDateTime = LocalDateTime.parse(test.getEndDay() + " 23:59", formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-                    if (currentDateTime.isAfter(startDateTime) && currentDateTime.isBefore(endDateTime)) 
+                    LocalDateTime startDateTime = LocalDateTime.parse(test.getStartTime(), formatter);
+                    LocalDateTime endDateTime = LocalDateTime.parse(test.getEndTime(), formatter);
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+
+                    if (currentDateTime.isAfter(startDateTime) && currentDateTime.isBefore(endDateTime))
                         curTestResponse.setCanEnter(1);
-                    else 
+                    else
                         curTestResponse.setCanEnter(0);
                 }
             } else {
                 // từng làm
-                if (test.getType() == 0) 
+                if (test.getType() == 0)
                     // tu do, tung lam
                     curTestResponse.setCanEnter(2);
-                else 
+                else
                     curTestResponse.setCanEnter(0);
             }
 
@@ -157,7 +156,6 @@ public class StudentTestServiceImpl implements StudentTestService {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
         symbols.setDecimalSeparator('.');
         DecimalFormat df1 = new DecimalFormat("0.0", symbols);
-        DecimalFormat df2 = new DecimalFormat("0.00", symbols);
 
         for (int i = 0; i < cntQuestion; ++i)
             if (questions.get(i).getCorrectOption().equals(choices.get(i)))
@@ -171,22 +169,13 @@ public class StudentTestServiceImpl implements StudentTestService {
             if (test.getType() == 1)
                 throw new AppException(ErrorCode.TEST_CANNOT_BE_RETAKEN);
 
-            saveTestUser.setScoreRatio(String.valueOf(cntCorrect) + "/" + String.valueOf(cntQuestion));
-
-            saveTestUser.setChoices(answer.getChoices());
-            saveTestUser.setSubmitTime(timeNow);
-
-            float allScorePrev = test.getMediumScore() * test.getCntStudent();
-            float cntCompletionRatePrev = test.getCompletionRate() * test.getCntStudent();
-
-            float allScoreNew = allScorePrev - saveTestUser.getScore() + score;
-            float cntCompletionRateNew = cntCompletionRatePrev - (saveTestUser.isCompleted() ? 1 : 0)
-                    + (score >= 4 ? 1 : 0);
-
-            test.setMediumScore(Float.valueOf(df1.format(allScoreNew / test.getCntStudent())));
-            test.setCompletionRate(Float.valueOf(df2.format(cntCompletionRateNew / test.getCntStudent())));
-            saveTestUser.setScore(score);
-            saveTestUser.setCompleted(score >= 4 ? true : false);
+            if (saveTestUser.getScore() < score) {
+                saveTestUser.setScoreRatio(String.valueOf(cntCorrect) + "/" + String.valueOf(cntQuestion));
+                saveTestUser.setChoices(answer.getChoices());
+                saveTestUser.setSubmitTime(timeNow);
+                saveTestUser.setScore(score);
+                saveTestUser.setCompleted(score >= 4 ? true : false);
+            }
 
             testRepository.save(test);
         }
@@ -204,31 +193,6 @@ public class StudentTestServiceImpl implements StudentTestService {
             saveTestUser.setCompleted(score >= 4 ? true : false);
 
             saveTestUser.setSubmitTime(timeNow);
-
-            if (test.getCntStudent() == 0) {
-                test.setCntStudent(1);
-                test.setMediumScore(score);
-                if (score >= 4)
-                    test.setCompletionRate(1);
-                else
-                    test.setCompletionRate(0);
-            } else {
-                int cntStudentPrev = test.getCntStudent();
-
-                float mediumScorePrev = test.getMediumScore();
-                float completionRatePrev = test.getCompletionRate();
-
-                float mediumScoreNew = Float
-                        .valueOf(df1.format((mediumScorePrev * cntStudentPrev + score) / (cntStudentPrev + 1)));
-                float completionRateNew = Float.valueOf(df2
-                        .format((completionRatePrev * cntStudentPrev + (score >= 4 ? 1 : 0)) / (cntStudentPrev + 1)));
-
-                test.setMediumScore(mediumScoreNew);
-                test.setCompletionRate(completionRateNew);
-                test.setCntStudent(cntStudentPrev + 1);
-            }
-
-            testRepository.save(test);
         }
 
         testUserRepository.save(saveTestUser);

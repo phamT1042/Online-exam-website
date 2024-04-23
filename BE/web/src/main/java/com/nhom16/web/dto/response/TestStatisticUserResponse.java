@@ -11,5 +11,5 @@ public class TestStatisticUserResponse {
     private boolean completed; // true: hoàn thành
     private String submitTime; // dd/mm/yyyy hh:mm:ss
 
-    // Từ các score, vẽ chart phân phối điểm số thôi cũng được
+    // Từ các score, vẽ chart phân phối điểm số và tỉ lệ hoàn thành (tròn)
 }

@@ -1,11 +1,8 @@
 package com.nhom16.web.service.impl;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -146,31 +143,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     public String deleteUser(String userId) {
         var res = userRepository.findById(userId);
         if (res.isPresent()) {
-            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
-            symbols.setDecimalSeparator('.');
-            DecimalFormat df1 = new DecimalFormat("0.0", symbols);
-            DecimalFormat df2 = new DecimalFormat("0.00", symbols);
-
             String username = res.get().getUsername();
-            // Thay đổi dữ liệu thống kê các bài thi user này đã tham gia + xoá lịch sử thi
-            List<TestUser> historyTests = testUserRepository.findByUserId(userId);
-
-            for (TestUser historyTest : historyTests) {
-                Test test = testRepository.findById(historyTest.getTestId()).get();
-
-                float mediumScoreNew = Float
-                        .valueOf(df1.format((test.getMediumScore() * test.getCntStudent() - historyTest.getScore())
-                        / (test.getCntStudent() - 1)));
-                float completionRateNew = Float.valueOf(df2
-                        .format((test.getCompletionRate() * test.getCntStudent() - (historyTest.getScore() >= 4 ? 1 : 0))
-                        / (test.getCntStudent() - 1)));
-
-                test.setMediumScore(mediumScoreNew);
-                test.setCompletionRate(completionRateNew);
-                test.setCntStudent(test.getCntStudent() - 1);
-
-                testRepository.save(test);
-            }
 
             testUserRepository.deleteAllByUserId(userId);
             userRepository.deleteById(userId);

@@ -50,10 +50,10 @@ const SearchStudentElement = ({ user }) => {
         {
             title: <div className='text-base'>Xem</div>,
             key: 'detail',
-            render: () =>
+            render: (text, record) =>
                 <Button
                     className='bg-ptit font-semibold text-white cursor-pointer'
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => handleButtonClick(record.id)}
                 >
                     Chi tiết
                 </Button>
@@ -85,6 +85,32 @@ const SearchStudentElement = ({ user }) => {
             message.error('Error catch fetch data test')
         }
     }
+
+    const handleButtonClick = async (testId) => {
+        const token = sessionStorage.getItem('token');
+        try {
+            const res = await fetch(`http://localhost:8080/api/admin/users/search/detail?userId=${user.id}&testId=${testId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const fetchData = await res.json();
+
+            if (fetchData.code === 200) {
+                setDataTestDetail(fetchData.result);
+                setOpenModal(true);
+                // console.log(fetchData.result)
+            }
+            else {
+                message.error('Error network')
+            }
+        } catch (error) {
+            message.error('Error catch fetch data test')
+        }
+    };
 
     useEffect(() => {
         if (activeKey === user.id) {
@@ -139,19 +165,16 @@ const SearchStudentElement = ({ user }) => {
     return (
         <>
             <Modal
-                title="Modal 1000px width"
+                title="Xem chi tiết bài làm"
                 centered
                 open={openModal}
                 onCancel={() => setOpenModal(false)}
                 footer={null}
                 width={1000}
             >
-                <Table
-                    dataSource={dataTestSearch}
-                    columns={columns}
-                    rowKey="id"
-                    pagination={{ pageSize: 5 }}
-                />
+                {
+                    dataTestDetail && JSON.stringify(dataTestDetail, null, 2)
+                }
             </Modal>
 
             <Collapse

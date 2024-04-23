@@ -1,7 +1,10 @@
 package com.nhom16.web.service.impl;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import com.nhom16.web.exception.AppException;
@@ -21,9 +24,6 @@ import com.nhom16.web.repository.TestUserRepository;
 import com.nhom16.web.repository.UserRepository;
 import com.nhom16.web.service.AdminTestService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class AdminTestServiceImpl implements AdminTestService {
 
@@ -47,8 +47,7 @@ public class AdminTestServiceImpl implements AdminTestService {
             now.setExam(x.getExam());
             now.setName(x.getName());
             now.setType(x.getType());
-            now.setStartDay(x.getStartDay());
-            now.setEndDay(x.getEndDay());
+            now.setEndTime(x.getEndTime());
             now.setStartTime(x.getStartTime());
             now.setDuration(x.getDuration());
             ret.add(now);
@@ -75,12 +74,10 @@ public class AdminTestServiceImpl implements AdminTestService {
         curTest.setDuration(request.getDuration());
         curTest.setQuestions(request.getQuestions());
 
-        if (request.getStartDay() != null)
-            curTest.setStartDay(request.getStartDay());
-        if (request.getEndDay() != null)
-            curTest.setEndDay(request.getEndDay());
         if (request.getStartTime() != null)
             curTest.setStartTime(request.getStartTime());
+        if (request.getEndTime() != null)
+            curTest.setEndTime(request.getEndTime());
 
         return testRepository.save(curTest);
     }
@@ -99,24 +96,19 @@ public class AdminTestServiceImpl implements AdminTestService {
         if (request.getType() != null) {
             curTest.setType(request.getType());
             if (request.getType() == 0) {
-                curTest.setStartDay(null);
-                curTest.setEndDay(null);
+                curTest.setEndTime(null);
                 curTest.setStartTime(null);
             }
         }
 
-        if (request.getStartDay() != null)
-            curTest.setStartDay(request.getStartDay());
-        if (request.getEndDay() != null)
-            curTest.setEndDay(request.getEndDay());
         if (request.getStartTime() != null)
             curTest.setStartTime(request.getStartTime());
+        if (request.getEndTime() != null)
+            curTest.setEndTime(request.getEndTime());
         if (request.getDuration() != 0)
             curTest.setDuration(request.getDuration());
         if (request.getQuestions() != null)
             curTest.setQuestions(request.getQuestions());
-
-        log.info("Xin chao" + String.valueOf(request.getType()));
 
         return testRepository.save(curTest);
     }
@@ -139,6 +131,11 @@ public class AdminTestServiceImpl implements AdminTestService {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public List<TestStatisticResponse> getTestStatistic() {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setDecimalSeparator('.');
+        DecimalFormat df1 = new DecimalFormat("0.0", symbols);
+        DecimalFormat df2 = new DecimalFormat("0.00", symbols);
+
         List<TestStatisticResponse> statisticTests = new ArrayList<>();
 
         List<Test> tests = testRepository.findAll();
@@ -148,9 +145,29 @@ public class AdminTestServiceImpl implements AdminTestService {
             statisticTest.setId(test.getId());
             statisticTest.setExam(test.getExam());
             statisticTest.setName(test.getName());
-            statisticTest.setMediumScore(test.getMediumScore());
-            statisticTest.setCompletionRate(test.getCompletionRate());
-            statisticTest.setCntStudent(test.getCntStudent());
+
+            List<TestUser> testUsers = testUserRepository.findByTestId(test.getId());
+            int cntStudent = testUsers.size();
+
+            if (cntStudent > 0) {
+                float sumScore = 0;
+                int cntCompleted = 0;
+
+                for (TestUser testUser : testUsers) {
+                    if (testUser.isCompleted())
+                        cntCompleted++;
+                    sumScore += testUser.getScore();
+                }
+
+                statisticTest.setMediumScore(Float.valueOf(df1.format(sumScore / cntStudent)));
+                statisticTest.setCompletionRate(Float.valueOf(df2.format(cntCompleted * 1.0f / cntStudent)));
+            }
+            else {
+                statisticTest.setMediumScore(0);
+                statisticTest.setCompletionRate(0);
+            }
+            statisticTest.setCntStudent(cntStudent);
+
             statisticTests.add(statisticTest);
         }
 

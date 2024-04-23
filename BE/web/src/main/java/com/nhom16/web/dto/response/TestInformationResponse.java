@@ -8,8 +8,7 @@ public class TestInformationResponse {
     private String exam;
     private String name;
     private Integer type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
-    private String startDay; // ngày mở đóng
-    private String endDay;
+    private String endTime; // ngày mở đóng
     private String startTime; // thời gian mở
     private int duration; // thời gian thi
 
