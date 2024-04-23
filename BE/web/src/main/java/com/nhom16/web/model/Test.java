@@ -20,16 +20,10 @@ public class Test {
     private String exam;
     private String name;
     private Integer type; // 0 là tự do, 1 là có thời gian thời hạn mở đóng
-    private String startDay; // ngày mở đóng
-    private String endDay;
-    private String startTime; // thời gian mở
+    private String startTime; // ngày mở, dd/mm/yyyy hh:mm:ss
+    private String endTime; // ngày đóng, dd/mm/yyyy hh:mm:ss
     private int duration; // thời gian thi, giá trị theo phút
 
     // Questions
     private List<Question> questions;
-
-    // Statistics
-    private int cntStudent; // số học sinh đã tham gia
-    private float mediumScore; // điểm trung bình tất cả hs tham gia
-    private float completionRate; // tỉ lệ hoàn thành (số hs >= 4 điểm)
 }
