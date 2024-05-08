@@ -4,23 +4,52 @@ import React, { useState, useEffect, useRef } from "react";
 import { Spin, message } from "antd";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
+import * as XLSX from "xlsx";
 
 const page = () => {
   const [test, setTest] = useState({
     exam: "",
     name: "",
     type: 1,
-    startDay: "",
-    endDay: "",
+    endTime: "",
+    startTime: "",
     duration: 60,
     questions: [
       { questionText: "", options: ["", "", "", ""], correctOption: "" },
     ],
   });
-  const [isDisabled, setDisabled] = useState(false);
+
   const { id } = useParams();
+  const [startCurDate, setStartCurDate] = useState("");
+  const [startCurTime, setStartCurTime] = useState("");
+  const [endCurDate, setEndCurDate] = useState("");
+  const [endCurTime, setEndCurTime] = useState("");
 
   const questionContainerRef = useRef(null);
+
+  function convertDateFormat(dateString) {
+    const parts = dateString.split("/");
+    if (parts.length !== 3) {
+      return null; // Nếu định dạng không đúng, trả về null
+    }
+
+    const [day, month, year] = parts;
+    // Sử dụng Template literals để tạo định dạng mới
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  }
+
+  function reverseDateFormat(dateString) {
+    const parts = dateString.split("-");
+    if (parts.length !== 3) {
+      return null; // Nếu định dạng không đúng, trả về null
+    }
+
+    const [year, month, day] = parts;
+    // Sử dụng Template literals để tạo định dạng mới
+    return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
+  }
 
   useEffect(() => {
     if (questionContainerRef.current) {
@@ -45,6 +74,11 @@ const page = () => {
         );
         const data = await response.json();
         setTest(data.result);
+        // Kiểm tra đã fetch dữ liệu và startTime, endTime tồn tại
+        setStartCurDate(convertDateFormat(data.result.startTime.split(" ")[0]));
+        setStartCurTime(data.result.startTime.split(" ")[1]);
+        setEndCurDate(convertDateFormat(data.result.endTime.split(" ")[0]));
+        setEndCurTime(data.result.endTime.split(" ")[1]);
       } catch (error) {
         console.error(error);
       }
@@ -56,6 +90,30 @@ const page = () => {
   if (!test) {
     return <Spin />;
   }
+
+  useEffect(() => {
+    if (test.type === 0) {
+      setStartCurDate("");
+      setStartCurTime("");
+      setEndCurDate("");
+      setEndCurTime("");
+      setTest((prevState) => ({ ...prevState, startDay: "", endDay: "" }));
+    }
+  }, [test.type]);
+
+  useEffect(() => {
+    if (startCurDate || startCurTime) {
+      const startTime = `${reverseDateFormat(startCurDate)} ${startCurTime}`;
+      setTest((prevState) => ({ ...prevState, startTime }));
+    }
+  }, [startCurDate, startCurTime]);
+
+  useEffect(() => {
+    if (endCurDate || endCurTime) {
+      const endTime = `${reverseDateFormat(endCurDate)} ${endCurTime}`;
+      setTest((prevState) => ({ ...prevState, endTime }));
+    }
+  }, [endCurDate, endCurTime]);
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -78,15 +136,6 @@ const page = () => {
     setTest((prevState) => ({ ...prevState, questions: list }));
   };
 
-  const [selectedOption, setSelectedOption] = useState(test.type); // State để lưu trữ giá trị được chọn
-
-  const handleChange = (event) => {
-    const now = event.target.value;
-    setSelectedOption(now); // Cập nhật giá trị khi người dùng chọn một tùy chọn mới
-    setDisabled(now == 0);
-    setTest((prevState) => ({ ...prevState, type: now }));
-  };
-
   const handleTestChange = (e) => {
     setTest({ ...test, [e.target.name]: e.target.value });
   };
@@ -99,6 +148,56 @@ const page = () => {
         { questionText: "", options: ["", "", "", ""], correctOption: "" },
       ],
     }));
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const questions = XLSX.utils
+          .sheet_to_json(worksheet, { header: 1 })
+          .slice(1);
+        setTest({ ...test, questions: [] });
+        // Dòng đầu tiên trong file Excel có thể là tiêu đề, nếu cần, bạn có thể bỏ qua nó bằng cách sử dụng questions.slice(1)
+
+        // Xử lý và validate dữ liệu câu hỏi từ mỗi dòng trong file Excel
+        const formattedQuestions = questions
+          .map((row, index) => {
+            const [
+              questionText,
+              option1,
+              option2,
+              option3,
+              option4,
+              correctOption,
+            ] = row;
+
+            // Trả về định dạng câu hỏi phù hợp với state của ứng dụng
+            return {
+              questionText,
+              options: [option1, option2, option3, option4],
+              correctOption,
+            };
+          })
+          .filter((question) => question !== null); // Loại bỏ các dòng không hợp lệ
+
+        // Thêm các câu hỏi vào state của ứng dụng
+        setTest((prevState) => ({
+          ...prevState,
+          questions: [...prevState.questions, ...formattedQuestions],
+        }));
+
+        message.success("Import câu hỏi từ file Excel thành công!");
+      } catch (error) {
+        message.error("Có lỗi xảy ra khi import câu hỏi từ file Excel.");
+        console.error(error);
+      }
+    };
+    reader.readAsArrayBuffer(file);
   };
 
   const handleSubmit = async (e) => {
@@ -121,7 +220,7 @@ const page = () => {
         }
       );
       if (response.ok) {
-        message.success("Cập bài thi thành công!");
+        message.success("Cập nhật bài thi thành công!");
         // Thực hiện các hành động khác sau khi test đã được tạo
       } else {
         message.error("Cập nhật bài thi thất bại!");
@@ -136,6 +235,7 @@ const page = () => {
     list.splice(index, 1);
     setTest((prevState) => ({ ...prevState, questions: list }));
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -164,8 +264,10 @@ const page = () => {
           <select
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             id="combo"
-            value={selectedOption}
-            onChange={handleChange}
+            value={test.type}
+            onChange={(e) =>
+              setTest({ ...test, type: parseInt(e.target.value) })
+            }
           >
             <option value="1">Có thời hạn</option>
             <option value="0">Tự do</option>
@@ -176,27 +278,52 @@ const page = () => {
           <label className="block mt-4 mb-2 text-lg font-bold">
             Ngày bắt đầu:
           </label>
-          <input
-            className={
-              "w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            }
-            type="datetime-local"
-            value={test.startDay}
-            disabled={isDisabled}
-            onChange={(e) => setTest({ ...test, startDay: e.target.value })}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              className={
+                "px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              }
+              type="date"
+              value={startCurDate}
+              disabled={test.type === 0}
+              onChange={(e) => {
+                setStartCurDate(e.target.value);
+              }}
+            />
+
+            <TimePicker
+              value={startCurTime ? dayjs(startCurTime, "HH:mm:ss") : null}
+              disabled={test.type === 0}
+              onChange={(time, timeString) => {
+                setStartCurTime(timeString);
+              }}
+            />
+          </div>
         </div>
         <div>
           <label className="block mt-4 mb-2 text-lg font-bold">
             Ngày kết thúc:
           </label>
-          <input
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            type="datetime-local"
-            value={test.endDay}
-            disabled={isDisabled}
-            onChange={(e) => setTest({ ...test, endDay: e.target.value })}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              className={
+                "px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              }
+              type="date"
+              value={endCurDate}
+              disabled={test.type === 0}
+              onChange={(e) => {
+                setEndCurDate(e.target.value);
+              }}
+            />
+            <TimePicker
+              value={endCurTime ? dayjs(endCurTime, "HH:mm:ss") : null}
+              disabled={test.type === 0}
+              onChange={(time, timeString) => {
+                setEndCurTime(timeString);
+              }}
+            />
+          </div>
         </div>
 
         <label className="block mt-4 mb-2 text-lg font-bold">
@@ -274,13 +401,22 @@ const page = () => {
         >
           Thêm câu hỏi
         </button>
+        <div className="flex items-center justify-between mt-6">
+          <label className="text-2xl">Nhập câu hỏi từ file Excel: </label>
+          <input
+            type="file"
+            accept=".xlsx, .xls"
+            className="w-auto appearance-none bg-white border border-gray-300 rounded-md py-2 px-2 text-base leading-normal focus:outline-none focus:border-blue-500"
+            onChange={handleFileUpload}
+          />
+        </div>
       </div>
       <div className="col-span-2 flex justify-end">
         <button
           type="submit"
           className="w-32 px-4 mx-6 py-2 text-lg font-bold text-white bg-green-500 rounded-md focus:outline-none hover:bg-green-600"
         >
-          Tạo bài thi
+          Cập nhật
         </button>
         <Link href={"/admin/dashboard"}>
           <button
