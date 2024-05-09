@@ -691,24 +691,6 @@ const page = () => {
           </Form.Item>
 
           <Form.Item
-            label="Mật khẩu"
-            name="password"
-            initialValue={userCur.password}
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập mật khẩu!",
-              },
-            ]}
-          >
-            <Input.Password
-              onChange={(e) =>
-                setUserCur({ ...userCur, password: e.target.value })
-              }
-            />
-          </Form.Item>
-
-          <Form.Item
             label="Họ và tên"
             name="fullName"
             initialValue={userCur.fullName}
@@ -828,7 +810,9 @@ const page = () => {
         open={showDeleteUserModal}
         onCancel={() => setShowDeleteUserModal(false)}
         footer={[
-          <Button key="back">Hủy</Button>,
+          <Button key="back" onClick={() => setShowDeleteUserModal(false)}>
+            Hủy
+          </Button>,
           <Button
             key="submit"
             type="primary"
