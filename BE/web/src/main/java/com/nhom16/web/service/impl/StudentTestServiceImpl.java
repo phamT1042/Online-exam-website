@@ -91,7 +91,7 @@ public class StudentTestServiceImpl implements StudentTestService {
                     // tu do, tung lam
                     curTestResponse.setCanEnter(2);
                 else
-                    curTestResponse.setCanEnter(0);
+                    curTestResponse.setCanEnter(3);
             }
 
             testResponse.add(curTestResponse);
