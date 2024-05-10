@@ -170,6 +170,7 @@ const page = () => {
                         dataSource={dataTest}
                         columns={columns}
                         rowKey="id"
+                        pagination={{ pageSize: 8 }}
                     />
                 </div>
             </div>
