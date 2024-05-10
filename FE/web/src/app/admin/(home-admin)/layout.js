@@ -14,6 +14,7 @@ export default function HomeLayout({ children }) {
         {name: "Trang chủ", path: "/admin/dashboard"},
         {name: "Thống kê", path: "/admin/statistics"},
         {name: "Xem kết quả sinh viên", path: "/admin/search-student"},
+        {name: "Đổi mật khẩu", path: "/admin/edit"},
         {name: "Đăng xuất", path: "/admin/login"}
     ]
 
