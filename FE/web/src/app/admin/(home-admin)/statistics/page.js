@@ -88,7 +88,7 @@ const statistics = () => {
     });
 
     const handleTestClick = (testId) => {
-        router.push(`/admin/statistics/{testId}`);
+        router.push(`/admin/statistics/${testId}`);
     };
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);

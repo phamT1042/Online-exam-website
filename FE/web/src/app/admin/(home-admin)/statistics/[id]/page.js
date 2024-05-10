@@ -16,11 +16,11 @@ const statistics = () => {
     const [activeTab, setActiveTab] = useState(1);
     const [tests, setTests] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
-    const { testId } = useParams();
+    const { id } = useParams();
     useEffect(() => {
         const fetchTests = async () => {
             const token = sessionStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/api/admin/tests/statistics/${testId}`, {
+            const response = await fetch(`http://localhost:8080/api/admin/tests/statistics/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const statistics = () => {
                 },
             });
             const data = await response.json();
-            console.log('Tests data:', testId);
+            console.log('Tests data:', id);
             setTests(data.result);
         };
 
@@ -104,7 +104,7 @@ const statistics = () => {
                 'Tên Sinh Viên': test.fullname,
                 'Mã Sinh Viên': test.username,
                 'Điểm': test.score,
-                'Tỷ Lệ Hoàn Thành': test.scoreRatio,
+                'Tỷ Lệ Đúng': test.scoreRatio,
                 'Trạng Thái': test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài',
                 'Thời Gian Nộp':test.submitTime,
             }))
@@ -120,7 +120,7 @@ const statistics = () => {
         // Add font to support Vietnamese characters
         pdf.addFileToVFS('FreeSans.ttf', await fetch('https://raw.githubusercontent.com/mozilla/pdf.js/master/examples/learning/build/assets/FreeSans.ttf').then(r => r.arrayBuffer()));
         pdf.addFont('FreeSans.ttf', 'FreeSans', 'Normal');
-        pdf.setFont('FreeSans');
+        pdf.setFont('FreeSans', 'Normal');
 
         // Add table using autoTable
         pdf.autoTable({

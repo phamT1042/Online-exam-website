@@ -50,7 +50,7 @@ const TestTable = () => {
 
     const handleTestClick = (canEnter, testId) => {
         if (canEnter === 1 || canEnter === 2) {
-            router.push(`/questions/${testId}`);
+            router.push(`/test/${testId}`);
         } else {
             message.error('Không thể vào làm bài');
         }
