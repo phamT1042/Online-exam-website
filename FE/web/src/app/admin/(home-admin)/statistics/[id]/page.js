@@ -8,7 +8,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { Button, Menu, MenuItem } from '@mui/material';
-import FileSaver from 'file-saver';
+// import FileSaver from 'file-saver';
 import {useParams} from "next/navigation";
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 // import { useParams } from 'react-router-dom';
