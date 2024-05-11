@@ -72,6 +72,7 @@ const page = () => {
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [selectedTestId, setSelectedTestId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -285,6 +286,48 @@ const page = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
+  const customSearch = (testName, searchKeyword) => {
+    // Chuyển đổi cả hai chuỗi thành chữ thường và loại bỏ dấu
+    const normalizedTestName = removeAccents(testName.toLowerCase());
+    const normalizedSearchKeyword = removeAccents(searchKeyword.toLowerCase());
+
+    // Tách tên bài thi thành các từ
+    const testWords = normalizedTestName.split(" ");
+
+    // Kiểm tra xem từ khóa tìm kiếm có là một phần của từ hoàn chỉnh trong tên bài thi hay không
+    return testWords.some((word) => word.includes(normalizedSearchKeyword));
+  };
+
+  const filteredTests =
+    searchKeyword === ""
+      ? tests
+      : tests.filter((test) => {
+          return customSearch(test.name, searchKeyword);
+        });
+
+  // Hàm tìm kiếm người dùng không phân biệt dấu
+  const customUserSearch = (user, searchKeyword) => {
+    if (!user.fullName) return false;
+    const normalizedFullName = removeAccents(user.fullName.toLowerCase());
+    const normalizedSearchKeyword = removeAccents(searchKeyword.toLowerCase());
+
+    return normalizedFullName.includes(normalizedSearchKeyword);
+  };
+
+  // Lọc danh sách người dùng dựa trên từ khóa tìm kiếm
+  const filteredUsers =
+    searchKeyword === ""
+      ? users
+      : users.filter((user) => customUserSearch(user, searchKeyword));
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -306,14 +349,22 @@ const page = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Link href={"/admin/create-test"}>
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Thêm bài thi
-          </button>
-        </Link>
+        <div className="flex justify-between">
+          <div className="mb-4">
+            <Input
+              placeholder="Nhập từ khóa tìm kiếm"
+              onChange={handleSearch}
+            />
+          </div>
+          <Link href={"/admin/create-test"}>
+            <button
+              type="button"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Thêm bài thi
+            </button>
+          </Link>
+        </div>
 
         <table className="table-auto w-full border border-collapse border-gray-300">
           <thead>
@@ -334,12 +385,12 @@ const page = () => {
             </tr>
           </thead>
           <tbody>
-            {!tests ? (
+            {!filteredTests ? (
               <tr>
                 <td>Loading...</td>
               </tr>
             ) : (
-              tests.map((test) => (
+              filteredTests.map((test) => (
                 <tr key={test.id} className="grid grid-cols-6 md:grid-cols-10">
                   {/* <td className="border border-gray-300">{test.id}</td> */}
                   <td className="flex border px-5 col-span-2 border-gray-300 text-center items-center justify-center">
@@ -386,13 +437,23 @@ const page = () => {
         </table>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <button
-          type="button"
-          onClick={() => setShowAddUserModal(true)}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Thêm người dùng
-        </button>
+        <div className="flex justify-between">
+          <div className="mb-4">
+            <Input
+              placeholder="Nhập từ khóa tìm kiếm"
+              onChange={handleSearch}
+            />
+          </div>
+          <Link href={"/admin/create-test"}>
+            <button
+              type="button"
+              onClick={() => setShowAddUserModal(true)}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Thêm người dùng
+            </button>
+          </Link>
+        </div>
 
         <table className="table-auto w-full border border-collapse border-gray-300">
           <thead>
@@ -414,12 +475,12 @@ const page = () => {
             </tr>
           </thead>
           <tbody>
-            {!users ? (
+            {!filteredUsers ? (
               <tr>
                 <td>Loading...</td>
               </tr>
             ) : (
-              users.map((user) => (
+              filteredUsers.map((user) => (
                 <tr key={user.id} className="grid md:grid-cols-10 grid-cols-7">
                   <td className="flex border border-gray-300 text-center items-center justify-center">
                     {user.username}
@@ -488,6 +549,8 @@ const page = () => {
           resetUserCur();
           setShowAddUserModal(false);
         }}
+        preserve={false}
+        destroyOnClose={true}
         footer={[
           <Button key="back" onClick={() => setShowAddUserModal(false)}>
             Hủy
@@ -659,6 +722,8 @@ const page = () => {
           resetUserCur();
           setShowEditUserModal(false);
         }}
+        preserve={false}
+        destroyOnClose={true}
         footer={[
           <Button key="back" onClick={() => setShowEditUserModal(false)}>
             Hủy
