@@ -444,15 +444,13 @@ const page = () => {
               onChange={handleSearch}
             />
           </div>
-          <Link href={"/admin/create-test"}>
-            <button
-              type="button"
-              onClick={() => setShowAddUserModal(true)}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Thêm người dùng
-            </button>
-          </Link>
+          <button
+            type="button"
+            onClick={() => setShowAddUserModal(true)}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center justify-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Thêm người dùng
+          </button>
         </div>
 
         <table className="table-auto w-full border border-collapse border-gray-300">
