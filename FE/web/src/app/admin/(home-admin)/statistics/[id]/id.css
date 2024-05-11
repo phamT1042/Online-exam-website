@@ -1,0 +1,99 @@
+.container {
+    padding: 20px;
+}
+
+.tabs {
+    list-style: none; /* Loại bỏ dấu chấm của danh sách */
+    padding: 0;
+    display: flex; /* Để các tab nằm ngang */
+    border-bottom: 2px solid #ccc; /* Thêm đường viền dưới */
+}
+
+.tab {
+    padding: 10px 20px; /* Tạo khoảng cách bên trong tab */
+    cursor: pointer; /* Hiển thị bàn tay khi hover */
+    transition: background-color 0.3s; /* Hiệu ứng khi hover */
+}
+
+.tab:not(.tabHidden) {
+    border-bottom: 2px solid #1890ff; /* Đường viền cho tab đang được chọn */
+    background-color: #e0e0e0;
+}
+
+.tab:hover {
+    background-color: #f5f5f5; /* Thêm màu nền khi hover */
+}
+
+.content {
+    display: none; /* Ẩn các nội dung theo mặc định */
+}
+
+.content.hidden {
+    display: none; /* Đảm bảo tab không được chọn bị ẩn */
+}
+
+.content:not(.hidden) {
+    display: block; /* Hiển thị tab được chọn */
+}
+
+.table {
+    width: 100%; /* Đặt chiều rộng bảng là 100% */
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+}
+
+.table th, .table td {
+    padding: 10px; /* Tạo khoảng cách trong ô */
+    text-align: left; /* Căn trái */
+}
+
+.table th {
+    background-color: #f0f0f0; /* Màu nền cho phần đầu bảng */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu cho hàng chẵn */
+}
+
+.table tr:hover {
+    background-color: #f1f1f1; /* Hiệu ứng khi hover */
+}
+
+
+.table {
+    width: 100%; /* Bảng chiếm toàn bộ chiều rộng */
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+}
+
+.table th, .table td {
+    padding: 10px; /* Khoảng cách bên trong ô */
+    text-align: left; /* Căn lề trái */
+    border: 1px solid #ddd; /* Đường viền giữa các ô */
+}
+
+.table th {
+    background-color: #bb2019; /* Màu nền cho phần đầu bảng */
+    color: white; /* Chữ màu trắng trên nền đỏ */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền cho hàng chẵn */
+}
+
+.table tr:hover {
+    background-color: #f1f1f1; /* Hiệu ứng hover cho hàng */
+}
+
+.clickable {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s, text-decoration 0.3s; /* Add transitions for smooth hover effects */
+}
+
+.clickable:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+    text-decoration: underline; /* Underline text on hover */
+}
+.chart{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
