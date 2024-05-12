@@ -110,6 +110,8 @@ const ResultPage = ({ result }) => {
 const Page = () => {
   const { id } = useParams();
   const [result, setResult] = useState(null);
+  const [loading, setLoading]= useState(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,7 +128,8 @@ const Page = () => {
           }
         );
         const data = await response.json();
-        console.log(data.result); // Log result here
+        console.log(data.result);
+        setLoading(false)
         setResult(data.result);
       } catch (error) {
         console.error(error);
@@ -136,7 +139,7 @@ const Page = () => {
     fetchData();
   }, [id]);
 
-  if (!result) {
+  if (loading) {
     return <Spin />;
   }
 
