@@ -7,6 +7,8 @@ import SimCardDownloadOutlinedIcon from '@mui/icons-material/SimCardDownloadOutl
 import { writeFile } from 'xlsx';
 import { utils } from 'xlsx';
 
+import ResultPage from '@/components/ResultPage';
+
 const SearchStudentElement = ({ user }) => {
     const [dataTestSearch, setDataTestSearch] = useState([])
     const [dataTestDetail, setDataTestDetail] = useState()
@@ -172,9 +174,10 @@ const SearchStudentElement = ({ user }) => {
                 footer={null}
                 width={1000}
             >
-                {
+                {/* {
                     dataTestDetail && JSON.stringify(dataTestDetail, null, 2)
-                }
+                } */}
+                 <ResultPage result={dataTestDetail} />
             </Modal>
 
             <Collapse
