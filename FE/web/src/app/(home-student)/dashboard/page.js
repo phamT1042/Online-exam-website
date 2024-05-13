@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter  } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Menu, MenuItem, Button } from '@mui/material';
 import { message, Space } from 'antd';
 
@@ -60,21 +60,21 @@ const TestTable = () => {
         let buttonClass = '';
         let buttonText = '';
         if (canEnter === 1) {
-            buttonClass = 'status-button-success';
+            buttonClass = 'success';
             buttonText = 'Vào Làm';
         } else if (canEnter === 2) {
-            buttonClass = 'status-button-warning';
+            buttonClass = 'warning';
             buttonText = 'Làm Lại';
         } else if (canEnter === 0) {
-            buttonClass = 'status-button-disabled';
+            buttonClass = 'disabled';
             buttonText = 'Không Thể làm';
         } else {
-            buttonClass = 'status-button-error';
+            buttonClass = 'error';
             buttonText = 'Đã Hoàn Thành';
         }
         return (
             <button
-                className={buttonClass}
+                className={`status-button ${buttonClass}`}
                 onClick={() => handleTestClick(canEnter, testId)}
             >
                 {buttonText}
@@ -82,12 +82,10 @@ const TestTable = () => {
         );
     };
 
-    // Get unique values for the dropdown menu
     const uniqueNames = [...new Set(tests.map((test) => test.name))];
     const uniqueExams = [...new Set(tests.map((test) => test.exam))];
     const uniqueTypes = [...new Set(tests.map((test) => test.type))];
 
-    // Filter tests based on search and dropdown filters
     const filteredTests = tests.filter((test) => {
         const lowerCaseSearch = search.toLowerCase();
         const matchesSearch =
@@ -112,89 +110,77 @@ const TestTable = () => {
 
     return (
         <div>
-            <style jsx>{`
-        .container {
-          margin: 20px;
-        }
-        
-        h1 {
-          font-size: 24px;
-          font-weight: bold;
-          margin-bottom: 20px;
-        }
-        
-        .search-input {
-          margin-bottom: 20px;
-          padding: 5px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          width: 200px;
-        }
-        
-        table {
-          width: 100%;
-          border-collapse: collapse;
-        }
-        
-        th,
-        td {
-          padding: 10px;
-          text-align: left;
-          border-bottom: 1px solid #ccc;
-        }
-        
-        th {
-          font-weight: bold;
-          background-color: #bb2019;
-          color: #fff;
-        }
+            <style>{`
+                .container {
+                    margin: 20px;
+                }
+                
+                h1 {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                
+                .search-input {
+                    margin-bottom: 20px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    width: 200px;
+                }
+                
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                
+                th,
+                td {
+                    padding: 10px;
+                    text-align: left;
+                    border-bottom: 1px solid #ccc;
+                }
+                
+                th {
+                    font-weight: bold;
+                    background-color: #bb2019;
+                    color: #fff;
+                }
 
-        .filter-button {
-          border: none;
-          cursor: pointer;
-        }
-        
-        .filter-button:hover {
-          background-color: #ddd;
-          color: black;
-        }
-        
-        .status-button-success {
-          padding: 5px 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          color: #fff;
-          background-color: #4caf50;
-        }
-        
-        .status-button-warning {
-          padding: 5px 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          color: #fff;
-          background-color: #ffc107;
-        }
-        
-        .status-button-error {
-          padding: 5px 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          color: #fff;
-          background-color: #f44336;
-        }
-        
-        .status-button-disabled {
-          padding: 5px 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          color: #fff;
-          background-color: #ccc;
-        }
-      `}</style>
+                .filter-button {
+                    border: none;
+                    cursor: pointer;
+                }
+                
+                .filter-button:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+                
+                .status-button {
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    color: #fff;
+                }
+
+                .success {
+                    background-color: #4caf50;
+                }
+                
+                .warning {
+                    background-color: #ffc107;
+                }
+                
+                .error {
+                    background-color: #f44336;
+                }
+                
+                .disabled {
+                    background-color: #ccc;
+                }
+            `}</style>
 
             <div className="container">
                 <h1>Danh sách các bài Kiểm Tra</h1>
@@ -207,36 +193,36 @@ const TestTable = () => {
                 />
                 <table>
                     <thead>
-                    <tr >
-                        <th>STT</th>
-                        <th>
-                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
-                                Bài Thi
-                            </button>
-                        </th>
-                        <th>
-                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'exam')}>
-                                Kỳ Thi
-                            </button>
-                        </th>
-                        <th>
-                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'type')}>
-                                Loại
-                            </button>
-                        </th>
-                        <th>Trạng Thái</th>
-                    </tr>
+                        <tr>
+                            <th>STT</th>
+                            <th>
+                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
+                                    Bài Thi
+                                </button>
+                            </th>
+                            <th>
+                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'exam')}>
+                                    Kỳ Thi
+                                </button>
+                            </th>
+                            <th>
+                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'type')}>
+                                    Loại
+                                </button>
+                            </th>
+                            <th>Trạng Thái</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {filteredTests.map((test, index) => (
-                        <tr key={test.id}>
-                            <td>{index + 1}</td>
-                            <td>{test.name}</td>
-                            <td>{test.exam}</td>
-                            <td>{test.type === 0 ? 'Tự Do' : 'Có Thời Hạn'}</td>
-                            <td>{renderTestStatus(test.canEnter, test.id)}</td>
-                        </tr>
-                    ))}
+                        {filteredTests.map((test, index) => (
+                            <tr key={test.id}>
+                                <td>{index + 1}</td>
+                                <td>{test.name}</td>
+                                <td>{test.exam}</td>
+                                <td>{test.type === 0 ? 'Tự Do' : 'Có Thời Hạn'}</td>
+                                <td>{renderTestStatus(test.canEnter, test.id)}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 <Menu
@@ -269,6 +255,5 @@ const TestTable = () => {
         </div>
     );
 };
-
 
 export default TestTable;
