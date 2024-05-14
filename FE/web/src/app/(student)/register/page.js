@@ -84,9 +84,9 @@ const page = () => {
         e.preventDefault();
 
         const valid = handleBlur('username', formRegister.username)
-            || handleBlur('email', formRegister.email)
-            || handleBlur('password', formRegister.password)
-            || handleBlur('confirmPassword', formRegister.confirmPassword)
+            && handleBlur('email', formRegister.email)
+            && handleBlur('password', formRegister.password)
+            && handleBlur('confirmPassword', formRegister.confirmPassword, formRegister.password)
 
         if (!valid) return
         try {

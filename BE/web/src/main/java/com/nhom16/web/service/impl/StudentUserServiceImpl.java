@@ -32,14 +32,14 @@ public class StudentUserServiceImpl implements StudentUserService {
     }
 
     @Override
-    public String updateProfile(User request) {
+    public User updateProfile(User request) {
         var context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
 
         Optional<User> option = userRepository.findByUsername(username);
         User user = option.get();
 
-        if (request.getFullName() != null)
+        if (request.getFullName() != null) 
             user.setFullName(request.getFullName());
         if (request.getPhone() != null)
             user.setPhone(request.getPhone());
@@ -57,8 +57,7 @@ public class StudentUserServiceImpl implements StudentUserService {
             user.setEmail(request.getEmail());
         }
 
-        userRepository.save(user);
-        return "Cập nhật thông tin cá nhân cho username: " + username + " thành công";
+        return userRepository.save(user);
     }
 
     @Override
