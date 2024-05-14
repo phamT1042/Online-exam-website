@@ -169,15 +169,11 @@ public class StudentTestServiceImpl implements StudentTestService {
             if (test.getType() == 1)
                 throw new AppException(ErrorCode.TEST_CANNOT_BE_RETAKEN);
 
-            if (saveTestUser.getScore() < score) {
-                saveTestUser.setScoreRatio(String.valueOf(cntCorrect) + "/" + String.valueOf(cntQuestion));
-                saveTestUser.setChoices(answer.getChoices());
-                saveTestUser.setSubmitTime(timeNow);
-                saveTestUser.setScore(score);
-                saveTestUser.setCompleted(score >= 4 ? true : false);
-            }
-
-            testRepository.save(test);
+            saveTestUser.setScoreRatio(String.valueOf(cntCorrect) + "/" + String.valueOf(cntQuestion));
+            saveTestUser.setChoices(answer.getChoices());
+            saveTestUser.setSubmitTime(timeNow);
+            saveTestUser.setScore(score);
+            saveTestUser.setCompleted(score >= 4 ? true : false);
         }
 
         else {

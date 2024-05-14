@@ -1,0 +1,396 @@
+[{
+  "_id": {
+    "$oid": "66150d5c459f5b6840b1528e"
+  },
+  "testId": "660e7a95be879d7992e58b9e",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "2/3",
+  "score": 6.699999809265137,
+  "choices": [
+    "A",
+    "C",
+    "A"
+  ],
+  "submitTime": "09/04/2024 16:43:14",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "66150dfa459f5b6840b1528f"
+  },
+  "testId": "660e7a95be879d7992e58b9e",
+  "userId": "660ac58a27fa3f956edbdde9",
+  "scoreRatio": "3/3",
+  "score": 10,
+  "choices": [
+    "A",
+    "C",
+    "C"
+  ],
+  "submitTime": "09/04/2024 16:44:26",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "66150f7fd4a9032661dd7d39"
+  },
+  "testId": "660e7a95be879d7992e58b9b",
+  "userId": "660ac58a27fa3f956edbdde9",
+  "scoreRatio": "2/3",
+  "score": 6.699999809265137,
+  "choices": [
+    "D",
+    "B",
+    "A"
+  ],
+  "submitTime": "09/04/2024 16:51:48",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6615151ce7af036967e3d821"
+  },
+  "testId": "660e7a95be879d7992e58b9e",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "3/3",
+  "score": 10,
+  "choices": [
+    "A",
+    "C",
+    "C"
+  ],
+  "submitTime": "13/05/2024 16:24:28",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b17e0e3c846a99adbc9b"
+  },
+  "testId": "660e7a95be879d7992e58b9c",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "2/3",
+  "score": 6.699999809265137,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:34:22",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b19b0e3c846a99adbc9c"
+  },
+  "testId": "660e7a95be879d7992e58b9f",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:34:51",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b1eb0e3c846a99adbc9d"
+  },
+  "testId": "660e7a95be879d7992e58b9d",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "1/3",
+  "score": 3.299999952316284,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:36:11",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b1fb0e3c846a99adbc9e"
+  },
+  "testId": "660e7a95be879d7992e58ba0",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "1/3",
+  "score": 3.299999952316284,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:36:27",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b2060e3c846a99adbc9f"
+  },
+  "testId": "660e7a95be879d7992e58ba1",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:36:38",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b21d0e3c846a99adbca1"
+  },
+  "testId": "660e7a95be879d7992e58b9a",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "10/04/2024 22:37:01",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6616b2a80e3c846a99adbca2"
+  },
+  "testId": "660e7a95be879d7992e58b9b",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "2/3",
+  "score": 6.699999809265137,
+  "choices": [
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "17/04/2024 18:01:21",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6626816656077642eace489b"
+  },
+  "testId": "660e7a95be879d7992e58b9d",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "C",
+    "D",
+    ""
+  ],
+  "submitTime": "22/04/2024 22:25:26",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "662779e5597e0a156100687b"
+  },
+  "testId": "660e27b9d7185566f0d7f73d",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "1/4",
+  "score": 2.5,
+  "choices": [
+    "C",
+    "D",
+    "",
+    "A"
+  ],
+  "submitTime": "23/04/2024 16:05:41",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663bc0267053d95d7c9f710c"
+  },
+  "testId": "660e27b9d7185566f0d7f73e",
+  "userId": "660ac58a27fa3f956edbdddd",
+  "scoreRatio": "4/4",
+  "score": 10,
+  "choices": [
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "09/05/2024 01:10:46",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663c828d117b8160741f4894"
+  },
+  "testId": "660e27b9d7185566f0d7f73e",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "4/4",
+  "score": 10,
+  "choices": [
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "submitTime": "09/05/2024 15:00:13",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663cdd252a7a0d7033922e49"
+  },
+  "testId": "660e7a95be879d7992e58b9f",
+  "userId": "660ac58a27fa3f956edbdddd",
+  "scoreRatio": "2/3",
+  "score": 6.699999809265137,
+  "choices": [
+    "B",
+    "C",
+    "A"
+  ],
+  "submitTime": "09/05/2024 21:27:40",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663e2353ad416069939c763b"
+  },
+  "testId": "660e7a95be879d7992e58b9a",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "3/3",
+  "score": 10,
+  "choices": [
+    "D",
+    "D",
+    "B"
+  ],
+  "submitTime": "10/05/2024 20:47:21",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663e23f6ad416069939c763c"
+  },
+  "testId": "660e7a95be879d7992e58ba1",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "1/3",
+  "score": 3.299999952316284,
+  "choices": [
+    "C",
+    "B",
+    "C"
+  ],
+  "submitTime": "13/05/2024 13:59:30",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "663e25dfad416069939c763d"
+  },
+  "testId": "660e7a95be879d7992e58ba0",
+  "userId": "660ac58a27fa3f956edbdde4",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "C",
+    "C",
+    "B"
+  ],
+  "submitTime": "10/05/2024 20:49:19",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "66405d7bbc0c2e247d5529d9"
+  },
+  "testId": "660e7a95be879d7992e58ba0",
+  "userId": "6606c744997556640e627bcc",
+  "scoreRatio": "0/3",
+  "score": 0,
+  "choices": [
+    "",
+    "",
+    ""
+  ],
+  "submitTime": "12/05/2024 13:11:07",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "664083c645122a0b296cb5e6"
+  },
+  "testId": "660e27b9d7185566f0d7f73e",
+  "userId": "660ac58a27fa3f956edbdde8",
+  "scoreRatio": "0/4",
+  "score": 0,
+  "choices": [
+    "D",
+    "D",
+    "D",
+    "D"
+  ],
+  "submitTime": "12/05/2024 16:21:27",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6641b301e18cdf135aa4aceb"
+  },
+  "testId": "660e7a95be879d7992e58b9e",
+  "userId": "66409b05e84b2141faa1c291",
+  "scoreRatio": "3/3",
+  "score": 10,
+  "choices": [
+    "A",
+    "C",
+    "C"
+  ],
+  "submitTime": "13/05/2024 13:28:17",
+  "completed": true,
+  "_class": "com.nhom16.web.model.TestUser"
+},
+{
+  "_id": {
+    "$oid": "6642491384550a299862aeee"
+  },
+  "testId": "660e27b9d7185566f0d7f73e",
+  "userId": "6606c744997556640e627bcc",
+  "scoreRatio": "0/4",
+  "score": 0,
+  "choices": [
+    "",
+    "",
+    "",
+    ""
+  ],
+  "submitTime": "14/05/2024 00:08:34",
+  "completed": false,
+  "_class": "com.nhom16.web.model.TestUser"
+}]

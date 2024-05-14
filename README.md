@@ -30,7 +30,7 @@ Mở [http://localhost:3000](http://localhost:3000) trên trình duyệt để x
 ### BE/web
 - Vào MongoDB Compass, chọn New connection, paste link sau vào URI để kết nối database tạo trên MongoDB Atlas:
 ```bash
-mongodb+srv://pvantien203:nhom16@cluster0.nkol2nn.mongodb.net/
+mongodb+srv://pvantien203:nhom16@cluster0.wm5gc1p.mongodb.net/
 ```
 
 - Save and Connect luôn để tiện sử dụng, database sử dụng là "quiz-ptit"

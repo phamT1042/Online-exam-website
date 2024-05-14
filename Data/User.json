@@ -1,167 +1,273 @@
-[
-  {
-    "username": "B21DCCN123",
-    "password": "$2a$10$mTXiex0R/j68VxKdmF7guubDrhnhRGCS5QifywxJFTWLksxpvGk9G",
-    "email": "a3123213@gmail.com",
-    "fullName": "Phạm Văn Tiến",
-    "sex": "Nam",
-    "phone": "2103128",
-    "address": "huyện Thường Tín, thành phố Hà Nội",
-    "date": "01/03/2024",
-    "roles": [
-      "STUDENT"
-    ]
+[{
+  "_id": {
+    "$oid": "6606c744997556640e627bcc"
   },
-  {
-    "username": "B21DCCN405",
-    "password": "$2a$10$huj/6sG03OVXfVMYQGBiA.j/MOKV1cGd4WJYfFgtUCstleGlYxXnS",
-    "email": "pvantien203@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "admin123",
+  "password": "$2a$10$TlgcuiWfzQMfTTwHX0m1k.y5fQ9tHr4ec4r9YvpyRbBv7NRdUuXZ6",
+  "roles": [
+    "ADMIN"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde4"
   },
-  {
-    "username": "B21DCCN123",
-    "password": "$2a$10$KEifLtXud05qfgB3IhzUmeUi2p3S/Dp/.0/lI1Reh7tTsH02aMthm",
-    "email": "user1@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN131",
+  "password": "$2a$10$77MERTk5V6i/pm1bXV8KFe2t.4iTpbp4Jaf/bFsa2Iz5Y80kpzetW",
+  "email": "ptit@gmail.com",
+  "fullName": "Phạm Văn Nam",
+  "phone": "0494128822",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde1"
   },
-  {
-    "username": "B21DCCN124",
-    "password": "$2a$10$G4quncJax5Wlr1QhxgyGmeqpmDpGnjfQhBbhHuRV2/khN1q23X6Ga",
-    "email": "user2@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN128",
+  "password": "$2a$10$hBA44m9muqgl.kSMCAZ7kexXycUojm6QVWtH1NkUVbM3a90MWfnfu",
+  "email": "user6@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde3"
   },
-  {
-    "username": "B21DCCN125",
-    "password": "$2a$10$1KJOaRk51.AXtHl8WGCxo..lQZb.JC.ufDdUdWqBX9Bj4ybtSvfrW",
-    "email": "user3@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN130",
+  "password": "$2a$10$Clhfb2flUrKT5G5BVoFZrusVMOE59anJF3EKIx37sz8Kze.FWq0Xi",
+  "email": "user8@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde6"
   },
-  {
-    "username": "B21DCCN126",
-    "password": "$2a$10$BBfNCvdc4SxcG.ubVelXRuzDz0au5z2FJAfWTo6fEGFo.izySHdpW",
-    "email": "user4@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN133",
+  "password": "$2a$10$ZlpFmxztAPoelgBjIt3g2.oSBwAPhvUkM.fCdSv4UqWOHXhK7/RRm",
+  "email": "user11@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbddec"
   },
-  {
-    "username": "B21DCCN127",
-    "password": "$2a$10$l7D9xXqDubD27MI9A1SIDuefdyS0VVBeYdhIfmPypjTpxjFgrYSTK",
-    "email": "user5@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN139",
+  "password": "$2a$10$5Mn00e9UOIKQvONs5GEdvuzardG8XxCgO.O4yjtLzzF8IWHUt3JCS",
+  "email": "user17@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde5"
   },
-  {
-    "username": "B21DCCN128",
-    "password": "$2a$10$hBA44m9muqgl.kSMCAZ7kexXycUojm6QVWtH1NkUVbM3a90MWfnfu",
-    "email": "user6@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN132",
+  "password": "$2a$10$VnwVxkNet3AgHmBVErOnjusBNgA.WHFkRVmhVKMLc1Sr9YcZY.ifK",
+  "email": "user10@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbddeb"
   },
-  {
-    "username": "B21DCCN129",
-    "password": "$2a$10$AQEM1v/Xct2eC7R21V6WyeCqH7yGhw0FoFMpsnzMC4xmSMcy307X.",
-    "email": "user7@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN138",
+  "password": "$2a$10$eV9mSW2mo5KDuoNqyCS6MOk0JtqehEBoLnGPXNM4mGT3xDIizwjIG",
+  "email": "user16@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdded"
   },
-  {
-    "username": "B21DCCN130",
-    "password": "$2a$10$Clhfb2flUrKT5G5BVoFZrusVMOE59anJF3EKIx37sz8Kze.FWq0Xi",
-    "email": "user8@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN140",
+  "password": "$2a$10$AlB69FlQrU.L5YBr9SAop.p0OyDUsFE9AxrLZceFkhmKZyzSXy6z6",
+  "email": "user18@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdddd"
   },
-  {
-    "username": "B21DCCN131",
-    "password": "$2a$10$6qcPVkklW71NtTC95OVgAOhXjHc6Hg/DTr9itOAm/X/GDe6uJY3Rq",
-    "email": "user9@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN124",
+  "password": "$2a$10$G4quncJax5Wlr1QhxgyGmeqpmDpGnjfQhBbhHuRV2/khN1q23X6Ga",
+  "email": "user2@gmail.com",
+  "fullName": "Nguyễn Đức Nam",
+  "date": "11/04/2024",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbddde"
   },
-  {
-    "username": "B21DCCN132",
-    "password": "$2a$10$VnwVxkNet3AgHmBVErOnjusBNgA.WHFkRVmhVKMLc1Sr9YcZY.ifK",
-    "email": "user10@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN125",
+  "password": "$2a$10$1KJOaRk51.AXtHl8WGCxo..lQZb.JC.ufDdUdWqBX9Bj4ybtSvfrW",
+  "email": "user3@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde0"
   },
-  {
-    "username": "B21DCCN133",
-    "password": "$2a$10$ZlpFmxztAPoelgBjIt3g2.oSBwAPhvUkM.fCdSv4UqWOHXhK7/RRm",
-    "email": "user11@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN127",
+  "password": "$2a$10$l7D9xXqDubD27MI9A1SIDuefdyS0VVBeYdhIfmPypjTpxjFgrYSTK",
+  "email": "user5@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde2"
   },
-  {
-    "username": "B21DCCN134",
-    "password": "$2a$10$8KLT/BCGNvP5q65kts7RWu3ULOQJAL.27MPmzdVvD0jO2FPJes4r6",
-    "email": "user12@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN129",
+  "password": "$2a$10$AQEM1v/Xct2eC7R21V6WyeCqH7yGhw0FoFMpsnzMC4xmSMcy307X.",
+  "email": "user7@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde7"
   },
-  {
-    "username": "B21DCCN135",
-    "password": "$2a$10$gnsy4lX.E30D9dD6vXJykOIAQP18fPLcLb2Lah4mvOnSryqKp0TzG",
-    "email": "user13@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN134",
+  "password": "$2a$10$8KLT/BCGNvP5q65kts7RWu3ULOQJAL.27MPmzdVvD0jO2FPJes4r6",
+  "email": "user12@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde8"
   },
-  {
-    "username": "B21DCCN136",
-    "password": "$2a$10$sfB7UMjL52TF4abLahRvIuDk5HpErNxiXjQK3iw5qUbgE4JPtUOxe",
-    "email": "user14@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN135",
+  "password": "$2a$10$7OFVPe7xJnEZasb0gPZLbey9hTDihoN1eDwZu4JjIMUvPuiO5sXyC",
+  "email": "ltk123@gmail.com",
+  "fullName": "Lưu Trung Kiên",
+  "sex": "Nam",
+  "phone": "041829210",
+  "address": "thành phố Hà Nội",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbdde9"
   },
-  {
-    "username": "B21DCCN137",
-    "password": "$2a$10$EsTHQs5qrngRwh7VjkAUuOdm/DY/smoO8OwTX.otSfoKFB9BbdEQi",
-    "email": "user15@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN136",
+  "password": "$2a$10$sfB7UMjL52TF4abLahRvIuDk5HpErNxiXjQK3iw5qUbgE4JPtUOxe",
+  "email": "user14@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660ac58a27fa3f956edbddea"
   },
-  {
-    "username": "B21DCCN138",
-    "password": "$2a$10$eV9mSW2mo5KDuoNqyCS6MOk0JtqehEBoLnGPXNM4mGT3xDIizwjIG",
-    "email": "user16@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN137",
+  "password": "$2a$10$EsTHQs5qrngRwh7VjkAUuOdm/DY/smoO8OwTX.otSfoKFB9BbdEQi",
+  "email": "user15@gmail.com",
+  "roles": [
+    "STUDENT"
+  ]
+},
+{
+  "_id": {
+    "$oid": "660d6ed137f6d95107ef6b23"
   },
-  {
-    "username": "B21DCCN139",
-    "password": "$2a$10$5Mn00e9UOIKQvONs5GEdvuzardG8XxCgO.O4yjtLzzF8IWHUt3JCS",
-    "email": "user17@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
+  "username": "B21DCCN141",
+  "password": "$2a$10$c3CrmKNvUV0RmFUNb6WGjOd/eu18UOSjuC.erxGpQMe9Nebx8o7bS",
+  "email": "abc@gmail.com",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "660fec09df93a7205c6ed983"
   },
-  {
-    "username": "B21DCCN140",
-    "password": "$2a$10$AlB69FlQrU.L5YBr9SAop.p0OyDUsFE9AxrLZceFkhmKZyzSXy6z6",
-    "email": "user18@gmail.com",
-    "roles": [
-      "STUDENT"
-    ]
-  }
-]
+  "username": "B21DCCN001",
+  "password": "$2a$10$DIX2mJu80PmzLkdBScrqY..tTBN5Ckc9q7Hean0FXGJLChpW1DU66",
+  "email": "user0@gmail.com",
+  "fullName": "Đặng Trần Văn C",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "662489a4d019bf7e599ae13b"
+  },
+  "username": "B21DCCN143",
+  "password": "$2a$10$FzWpLHRMfmKvK84ziksRw.UjClwCF3TxpEmZ118UnwSN5FsSk1s/G",
+  "email": "testchange@gmail.com",
+  "fullName": "Nguyễn Minh Thắng",
+  "date": "14/10/2003",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "66409b05e84b2141faa1c291"
+  },
+  "username": "B21DCCN252",
+  "password": "$2a$10$YpPywxNacC1uJhBXVHu4R.12n6jsCbMVn/r/0GV1Mr3WPHCZcXUPC",
+  "email": "tbcd123@gmail.com",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "66409b2ce84b2141faa1c292"
+  },
+  "username": "B21DCCN253",
+  "password": "$2a$10$GK2y5CZqYqrvWAPMgGNTY.Zaw5nLCLYiJ.VNIJPdKZlymFMF81NS6",
+  "email": "tbcd1234@gmail.com",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+},
+{
+  "_id": {
+    "$oid": "66409b51e84b2141faa1c293"
+  },
+  "username": "B21DCCN254",
+  "password": "$2a$10$aRzZlZd2qcTy0myiDoAQXesTjekyKMcaLrJy4APPyutArQzrZHY56",
+  "email": "tbcd12354@gmail.com",
+  "roles": [
+    "STUDENT"
+  ],
+  "_class": "com.nhom16.web.model.User"
+}]
