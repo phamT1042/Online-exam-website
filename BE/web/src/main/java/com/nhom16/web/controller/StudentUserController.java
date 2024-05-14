@@ -31,8 +31,8 @@ public class StudentUserController {
     }
 
     @PutMapping("/update-profile")
-    public ApiResponse<String> updateProfile(@RequestBody User request) {
-        ApiResponse<String> apiResponse = new ApiResponse<>();
+    public ApiResponse<User> updateProfile(@RequestBody User request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
         apiResponse.setResult(studentUserService.updateProfile(request));
         return apiResponse;
     }

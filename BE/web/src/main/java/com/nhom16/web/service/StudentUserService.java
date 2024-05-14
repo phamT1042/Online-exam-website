@@ -8,7 +8,7 @@ import com.nhom16.web.model.User;
 public interface StudentUserService {
     Optional<User> getProfile();
 
-    String updateProfile(User request);
+    User updateProfile(User request);
 
     String updatePassword(ChangePasswordRequest request);
 }

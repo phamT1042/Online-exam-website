@@ -106,7 +106,7 @@ const page = () => {
             const check = await res.json();
 
             if (check.code === 200) {
-                setData(check.result);
+                setData(check.result)
                 message.success('Cập nhật thành công')
             }
             else {
@@ -172,7 +172,10 @@ const page = () => {
                         <div
                             className='text-xl font-medium text-ptit cursor-pointer hover:bg-gray-100'
                             onClick={() => {
-                                if (changeSetting) setChangeSetting(false)
+                                if (changeSetting) {
+                                    setChangeSetting(false)
+                                    form.resetFields()
+                                }
                             }}
                         >
                             Đổi mật khẩu
