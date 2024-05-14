@@ -61,7 +61,7 @@ const statistics = () => {
         '2-4': tests.filter((test) => test.score >= 2 && test.score < 4).length,
         '4-6': tests.filter((test) => test.score >= 4 && test.score < 6).length,
         '6-8': tests.filter((test) => test.score >= 6 && test.score < 8).length,
-        '8-10': tests.filter((test) => test.score >= 8 && test.score < 10).length,
+        '8-10': tests.filter((test) => test.score >= 8 && test.score <= 10).length,
     };
     const barChartData = {
         labels: Object.keys(scoreRanges), // Labels for the bar chart
