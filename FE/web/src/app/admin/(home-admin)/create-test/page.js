@@ -127,7 +127,10 @@ const page = () => {
       });
       if (response.ok) {
         message.success("Tạo bài thi thành công!");
-        window.location.href = "/admin/dashboard/";
+
+        setTimeout(() => {
+          window.location.href = "/admin/dashboard/";
+        }, 1000);
         // Thực hiện các hành động khác sau khi test đã được tạo
       } else {
         message.error("Tạo bài thi thất bại!");
