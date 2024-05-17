@@ -169,7 +169,9 @@ const page = () => {
       );
       if (response.ok) {
         message.success("Xóa bài thi thành công!");
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         // Thực hiện các hành động khác sau khi test đã đượcxXóa
       } else {
         message.error("Xóa bài thi thất bại!");
@@ -193,8 +195,10 @@ const page = () => {
       });
       if (response.ok) {
         message.success("Thêm người dùng thành công!");
-        resetUserCur();
-        window.location.reload();
+        setTimeout(() => {
+          resetUserCur();
+          window.location.reload();
+        }, 1000);
 
         // Thực hiện các hành động khác sau khi thêm người dùng thành công
       } else {
@@ -248,14 +252,16 @@ const page = () => {
       );
       if (response.ok) {
         message.success("Cập nhật người dùng thành công!");
-        resetUserCur();
-        window.location.reload();
+        setTimeout(() => {
+          resetUserCur();
+          window.location.reload();
+        }, 1000);
         // Thực hiện các hành động khác sau khi test đã được tạo
       } else {
         message.error("Cập nhật người dùng thất bại!");
       }
     } catch (error) {
-      message.error("Cập nhật người dùng thất bại!");
+      message.error("Lỗi cập nhật người dùng thất bại!");
     }
     resetUserCur();
   };
@@ -276,7 +282,9 @@ const page = () => {
       );
       if (response.ok) {
         message.success("Xóa người dùng thành công!");
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         // Thực hiện các hành động khác sau khi test đã đượcxXóa
       } else {
         message.error("Xóa người dùng thất bại!");
@@ -499,7 +507,7 @@ const page = () => {
                     {user.phone}
                   </td>
                   <td className="flex border border-gray-300 text-center items-center justify-center">
-                    {user.roles}
+                    {user.roles[0]}
                   </td>
                   <td className="flex border border-gray-300 items-center justify-center">
                     <button

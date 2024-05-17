@@ -1,6 +1,7 @@
 package com.nhom16.web.service.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -44,12 +45,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers() {
-        Query query = new Query();
-        query.addCriteria(
-                new Criteria().andOperator(
-                        Criteria.where("roles").nin("ADMIN")));
-        List<User> users = mongoTemplate.find(query, User.class);
-
+        List<User> users = userRepository.findAll();
+        users.sort(Comparator.comparing((User user) -> user.getRoles().contains("ADMIN")));
         return users;
     }
 
@@ -104,14 +101,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     public User updateUser(String userId, User request) {
         var res = userRepository.findById(userId);
         User curUser = res.get();
-
-        if (request.getUsername() != null && request.getUsername() != curUser.getUsername()) {
+        if (request.getUsername() != null && !request.getUsername().equals(curUser.getUsername())) {
             if (userRepository.findByUsername(request.getUsername()).isPresent())
                 throw new AppException(ErrorCode.USER_EXISTED);
             else
                 curUser.setUsername(request.getUsername());
         }
-        if (request.getEmail() != null && request.getEmail() != curUser.getEmail()) {
+        if (request.getEmail() != null && !request.getEmail().equals(curUser.getEmail())) {
             if (userRepository.findByEmail(request.getEmail()).isPresent())
                 throw new AppException(ErrorCode.USER_EXISTED);
             else

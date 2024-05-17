@@ -46,8 +46,8 @@ const page = () => {
     async function handleFormSubmit(e) {
         e.preventDefault();
 
-        const valid = handleBlur('username', formLogin.username)
-            || handleBlur('password', formLogin.password)
+        let valid = handleBlur('username', formLogin.username)
+        valid = handleBlur('password', formLogin.password) && valid
         if (!valid) return
 
         try {
@@ -62,7 +62,6 @@ const page = () => {
                 })
             })
             const data = await res.json();
-            console.log(data)
             if (data.code === 200) {
                 if (data.result.roles.includes("ADMIN")) {
                     message.success('Đăng nhập thành công')

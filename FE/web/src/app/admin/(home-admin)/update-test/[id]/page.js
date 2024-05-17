@@ -221,7 +221,9 @@ const page = () => {
       );
       if (response.ok) {
         message.success("Cập nhật bài thi thành công!");
-        window.location.href = "/admin/dashboard/";
+        setTimeout(() => {
+          window.location.href = "/admin/dashboard/";
+        }, 1000);
         // Thực hiện các hành động khác sau khi test đã được tạo
       } else {
         message.error("Cập nhật bài thi thất bại!");
