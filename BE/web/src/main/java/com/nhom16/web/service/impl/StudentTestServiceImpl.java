@@ -5,6 +5,7 @@ import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -252,6 +253,11 @@ public class StudentTestServiceImpl implements StudentTestService {
             responses.add(response);
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        // Sort the responses list by submitTime
+        responses.sort(
+                Comparator.comparing(response -> LocalDateTime.parse(((TestHistoryUserResponse) response).getSubmitTime(), formatter)).reversed());
         return responses;
     }
 
