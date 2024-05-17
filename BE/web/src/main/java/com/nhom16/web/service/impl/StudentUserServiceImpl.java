@@ -39,7 +39,7 @@ public class StudentUserServiceImpl implements StudentUserService {
         Optional<User> option = userRepository.findByUsername(username);
         User user = option.get();
 
-        if (request.getFullName() != null) 
+        if (request.getFullName() != null)
             user.setFullName(request.getFullName());
         if (request.getPhone() != null)
             user.setPhone(request.getPhone());
@@ -51,10 +51,11 @@ public class StudentUserServiceImpl implements StudentUserService {
             user.setAddress(request.getAddress());
 
         if (request.getEmail() != null) {
-            if (userRepository.findByEmail(request.getEmail()).isPresent())
-                throw new AppException(ErrorCode.USER_EXISTED);
-
-            user.setEmail(request.getEmail());
+            if (!user.getEmail().equals(request.getEmail())) {
+                if (userRepository.findByEmail(request.getEmail()).isPresent())
+                    throw new AppException(ErrorCode.USER_EXISTED);
+                user.setEmail(request.getEmail());
+            }
         }
 
         return userRepository.save(user);

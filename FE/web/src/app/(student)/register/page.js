@@ -83,10 +83,10 @@ const page = () => {
     async function handleFormSubmit(e) {
         e.preventDefault();
 
-        const valid = handleBlur('username', formRegister.username)
-            && handleBlur('email', formRegister.email)
-            && handleBlur('password', formRegister.password)
-            && handleBlur('confirmPassword', formRegister.confirmPassword, formRegister.password)
+        let valid = handleBlur('username', formRegister.username)
+        valid = handleBlur('email', formRegister.email) && valid
+        valid = handleBlur('password', formRegister.password) && valid
+        valid = handleBlur('confirmPassword', formRegister.confirmPassword, formRegister.password) && valid
 
         if (!valid) return
         try {
