@@ -1,13 +1,13 @@
 'use client'
 
-import React, {useEffect, useState} from 'react'; // Để sử dụng useState
+import React, { useEffect, useState } from 'react';
 import './statistics.css';
-import {useRouter} from "next/navigation";
-import {Button, Menu, MenuItem} from "@mui/material";
-import jsPDF from 'jspdf';
+import { useRouter } from "next/navigation";
+import { Button, Menu, MenuItem } from "@mui/material";
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-const statistics = () => {
+
+const Statistics = () => {
     const [activeTab, setActiveTab] = useState(1); // 1 là tab đầu tiên
     const [tests, setTests] = useState([]);
     const [search, setSearch] = useState('');
@@ -28,7 +28,6 @@ const statistics = () => {
                 },
             });
             const data = await response.json();
-            console.log('Tests data:', data);
             setTests(data.result);
         };
 
@@ -44,7 +43,6 @@ const statistics = () => {
                 },
             });
             const data = await response.json();
-            console.log('Tests data:', data);
             setUsers(data.result);
         };
 
@@ -61,7 +59,6 @@ const statistics = () => {
     };
 
     const handleFilterSelect = (value) => {
-        console.log('Selected filter value:', value);
         setFilterValue(value); // Set the filter value
         handleCloseMenu(); // Close the menu after selection
     };
@@ -76,7 +73,6 @@ const statistics = () => {
             test.name.toLowerCase().includes(lowerCaseSearch) ||
             test.exam.toLowerCase().includes(lowerCaseSearch);
         if (filterBy && filterValue) {
-            console.log('Filtering by:', filterBy, 'with value:', filterValue);
             if (filterBy === 'name') {
                 return test.name === filterValue && matchesSearch;
             } else if (filterBy === 'exam') {
@@ -89,37 +85,6 @@ const statistics = () => {
 
     const handleTestClick = (testId) => {
         router.push(`/admin/statistics/${testId}`);
-    };
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-    const exportToPDF = () => {
-        const doc = new jsPDF();
-        const tableColumn = ['STT', 'Bài Thi', 'Kỳ Thi', 'Điểm Trung Bình', 'Tỷ Lệ Hoàn Thành', 'Tổng số SV tham gia'];
-        const tableRows = [];
-
-        filteredTests.forEach((test, index) => {
-            const rowData = [
-                index + 1,
-                test.name,
-                test.exam,
-                test.mediumScore,
-                test.completionRate,
-                test.cntStudent,
-            ];
-            tableRows.push(rowData);
-        });
-
-        doc.autoTable({
-            head: [tableColumn],
-            body: tableRows,
-        });
-
-        doc.save('statistics.pdf');
     };
 
     const exportToExcel = () => {
@@ -138,34 +103,66 @@ const statistics = () => {
         XLSX.writeFile(wb, 'statistics.xlsx');
     };
 
-    return (
+    const handlePrint = () => {
+        const printContent = `
+            <h1>Danh sách bài thi</h1>
+            ${document.getElementById('printable-area').outerHTML}
+        `;
+        const printWindow = window.open('', '', 'width=800,height=600');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>In bảng</title>
+                <style>
+                    /* Add any styles you want to apply to the printed table here */
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                ${printContent}
+                <script>
+                    window.onload = function() {
+                        window.print();
+                        window.close();
+                    }
+                </script>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    };
 
+    return (
         <div className="container">
             <div style={{ textAlign: 'right', paddingBottom: '10px' }}>
-                <Button variant="outlined" onClick={handleMenuOpen}>
-                    Xuất tệp
+                <Button variant="outlined" onClick={exportToExcel}>
+                    Excel
                 </Button>
-
-                {/*<Menu*/}
-                {/*    anchorEl={anchorEl}*/}
-                {/*    open={Boolean(anchorEl)}*/}
-                {/*    onClose={handleMenuClose}*/}
-                {/*>*/}
-                {/*    <MenuItem onClick={exportToPDF}>Xuất tệp PDF</MenuItem>*/}
-                {/*    <MenuItem onClick={exportToExcel}>Xuất tệp Excel</MenuItem>*/}
-                {/*</Menu>*/}
+                <Button variant="outlined" onClick={handlePrint} style={{ marginLeft: '10px' }}>
+                    In
+                </Button>
             </div>
-            <input
-                className="search-input"
-                type="text"
-                placeholder="Tìm kiếm..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="search-container">
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
 
-            <table className="table">
+            <table className="table" id="printable-area">
                 <thead>
-                <tr >
+                <tr>
                     <th>STT</th>
                     <th>
                         <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
@@ -205,8 +202,6 @@ const statistics = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleCloseMenu}
             >
-                <MenuItem onClick={exportToPDF}>Xuất tệp PDF</MenuItem>
-                <MenuItem onClick={exportToExcel}>Xuất tệp Excel</MenuItem>
                 {filterBy === 'name' &&
                     uniqueNames.map((name) => (
                         <MenuItem key={name} onClick={() => handleFilterSelect(name)}>
@@ -231,4 +226,4 @@ const statistics = () => {
     );
 };
 
-export default statistics;
+export default Statistics;

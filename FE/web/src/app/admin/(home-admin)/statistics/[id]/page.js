@@ -4,14 +4,11 @@ import React, { useEffect, useState } from 'react';
 import './id.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
-import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { Button, Menu, MenuItem } from '@mui/material';
-// import FileSaver from 'file-saver';
 import {useParams} from "next/navigation";
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
-// import { useParams } from 'react-router-dom';
 const statistics = () => {
     const [activeTab, setActiveTab] = useState(1);
     const [tests, setTests] = useState([]);
@@ -89,13 +86,6 @@ const statistics = () => {
             },
         },
     };
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
 
     const exportToExcel = () => {
         const ws = XLSX.utils.json_to_sheet(
@@ -114,31 +104,43 @@ const statistics = () => {
         XLSX.writeFile(wb, 'DanhSachSinhVien.xlsx');
     };
 
-    const exportToPDF = async () => {
-        const pdf = new jsPDF();
-
-        // Add font to support Vietnamese characters
-        pdf.addFileToVFS('FreeSans.ttf', await fetch('https://raw.githubusercontent.com/mozilla/pdf.js/master/examples/learning/build/assets/FreeSans.ttf').then(r => r.arrayBuffer()));
-        pdf.addFont('FreeSans.ttf', 'FreeSans', 'Normal');
-        pdf.setFont('FreeSans', 'Normal');
-
-        // Add table using autoTable
-        pdf.autoTable({
-            head: [['STT', 'Tên Sinh Viên', 'Mã Sinh Viên', 'Điểm', 'Tỷ Lệ Hoàn Thành', 'Trạng Thái', 'Thời Gian Nộp']],
-            body: tests.map((test, index) => [
-                index + 1,
-                test.fullname,
-                test.username,
-                test.score,
-                test.scoreRatio,
-                test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài',
-                test.submitTime,
-            ]),
-        });
-
-        pdf.save('Danh sách sinh viên.pdf');
-        handleMenuClose();
+    const handlePrint = () => {
+        const printContent = `
+            <h1>Danh sách sinh viên</h1>
+            ${document.getElementById('printable-area').outerHTML}
+        `;
+        const printWindow = window.open('', '', 'width=800,height=600');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>In bảng</title>
+                <style>
+                    /* Add any styles you want to apply to the printed table here */
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                ${printContent}
+                <script>
+                    window.onload = function() {
+                        window.print();
+                        window.close();
+                    }
+                </script>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
     };
+
 
 
     return (
@@ -162,20 +164,14 @@ const statistics = () => {
 
             <div className={`content ${activeTab === 1 ? '' : 'hidden'}`}>
                 <div style={{ textAlign: 'right', paddingBottom: '10px' }}>
-                    <Button variant="outlined" onClick={handleMenuOpen}>
-                        Xuất tệp
+                    <Button variant="outlined" onClick={exportToExcel}>
+                        Excel
                     </Button>
-
-                    <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
-                    >
-                        <MenuItem onClick={exportToPDF}>Xuất tệp PDF</MenuItem>
-                        <MenuItem onClick={exportToExcel}>Xuất tệp Excel</MenuItem>
-                    </Menu>
+                    <Button variant="outlined" onClick={handlePrint} style={{ marginLeft: '10px' }}>
+                        In
+                    </Button>
                 </div>
-                <table className="table">
+                <table className="table" id="printable-area">
                     <thead>
                     <tr >
                         <th>STT</th>
