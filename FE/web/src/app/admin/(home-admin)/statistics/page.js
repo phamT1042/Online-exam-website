@@ -1,23 +1,26 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import './id.css';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { Pie, Bar } from 'react-chartjs-2';
+import './statistics.css';
+import { useRouter } from "next/navigation";
+import { Button, Menu, MenuItem } from "@mui/material";
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { Button, Menu, MenuItem } from '@mui/material';
-import {useParams} from "next/navigation";
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
-const statistics = () => {
-    const [activeTab, setActiveTab] = useState(1);
+
+const Statistics = () => {
+    const [activeTab, setActiveTab] = useState(1); // 1 là tab đầu tiên
     const [tests, setTests] = useState([]);
+    const [search, setSearch] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
-    const { id } = useParams();
+    const [filterBy, setFilterBy] = useState(null);
+    const [filterValue, setFilterValue] = useState(null);
+    const [users, setUsers] = useState([]);
+    const router = useRouter();
+
     useEffect(() => {
         const fetchTests = async () => {
             const token = sessionStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/api/admin/tests/statistics/${id}`, {
+            const response = await fetch('http://localhost:8080/api/admin/tests/statistics', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,88 +28,84 @@ const statistics = () => {
                 },
             });
             const data = await response.json();
-            console.log('Tests data:', id);
             setTests(data.result);
         };
 
         fetchTests();
 
+        const fetchUsers = async () => {
+            const token = sessionStorage.getItem('token');
+            const response = await fetch('http://localhost:8080/api/admin/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            const data = await response.json();
+            setUsers(data.result);
+        };
 
+        fetchUsers();
     }, []);
 
-    const handleTabClick = (tabNumber) => {
-        setActiveTab(tabNumber);
+    const handleOpenMenu = (event, column) => {
+        setAnchorEl(event.currentTarget); // Open the menu at the specified location
+        setFilterBy(column); // Determine the column to filter
     };
 
-    const pieChartData = {
-        labels: ['Hoàn Thành', 'Không Hoàn Thành'],
-        datasets: [
-            {
-                label: 'Tỷ Lệ Hoàn Thành',
-                data: [
-                    tests.filter((test) => test.score >= 5).length,
-                    tests.filter((test) => test.score < 5).length,
-                ],
-                backgroundColor: ['#36A2EB', '#FF6384'],
-            },
-        ],
+    const handleCloseMenu = () => {
+        setAnchorEl(null); // Close the dropdown menu
     };
 
+    const handleFilterSelect = (value) => {
+        setFilterValue(value); // Set the filter value
+        handleCloseMenu(); // Close the menu after selection
+    };
 
-    const scoreRanges = {
-        '0-2': tests.filter((test) => test.score >= 0 && test.score < 2).length,
-        '2-4': tests.filter((test) => test.score >= 2 && test.score < 4).length,
-        '4-6': tests.filter((test) => test.score >= 4 && test.score < 6).length,
-        '6-8': tests.filter((test) => test.score >= 6 && test.score < 8).length,
-        '8-10': tests.filter((test) => test.score >= 8 && test.score <= 10).length,
-    };
-    const barChartData = {
-        labels: Object.keys(scoreRanges), // Labels for the bar chart
-        datasets: [
-            {
-                label: 'Tần Suất Các Mức Điểm',
-                data: Object.values(scoreRanges), // Values for the bar chart
-                backgroundColor: '#FFCE56',
-            },
-        ],
-    };
-    const barChartOptions = {
-        scales: {
-            y: {
-                beginAtZero: true,
-                stepSize: 1, // Minimum step size of 1
-            },
-        },
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            tooltip: {
-                enabled: true,
-            },
-        },
+    const uniqueNames = [...new Set(tests.map((test) => test.name))];
+    const uniqueExams = [...new Set(tests.map((test) => test.exam))];
+
+    // Filter tests based on search and dropdown filters
+    const filteredTests = tests.filter((test) => {
+        const lowerCaseSearch = search.toLowerCase();
+        const matchesSearch =
+            test.name.toLowerCase().includes(lowerCaseSearch) ||
+            test.exam.toLowerCase().includes(lowerCaseSearch);
+        if (filterBy && filterValue) {
+            if (filterBy === 'name') {
+                return test.name === filterValue && matchesSearch;
+            } else if (filterBy === 'exam') {
+                return test.exam === filterValue && matchesSearch;
+            }
+        }
+
+        return matchesSearch;
+    });
+
+    const handleTestClick = (testId) => {
+        router.push(`/admin/statistics/${testId}`);
     };
 
     const exportToExcel = () => {
         const ws = XLSX.utils.json_to_sheet(
-            tests.map((test, index) => ({
+            filteredTests.map((test, index) => ({
                 STT: index + 1,
-                'Tên Sinh Viên': test.fullname,
-                'Mã Sinh Viên': test.username,
-                'Điểm': test.score,
-                'Tỷ Lệ Đúng': test.scoreRatio,
-                'Trạng Thái': test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài',
-                'Thời Gian Nộp':test.submitTime,
+                'Bài Thi': test.name,
+                'Kỳ Thi': test.exam,
+                'Điểm Trung Bình': test.mediumScore,
+                'Tỷ Lệ Hoàn Thành': test.completionRate,
+                'Tổng số SV tham gia': test.cntStudent,
             }))
         );
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'DanhSachSinhVien');
-        XLSX.writeFile(wb, 'DanhSachSinhVien.xlsx');
+        XLSX.utils.book_append_sheet(wb, ws, 'Statistics');
+        XLSX.writeFile(wb, 'statistics.xlsx');
     };
 
     const handlePrint = () => {
         const printContent = `
-            <h1>Danh sách sinh viên</h1>
+            <h1>Danh sách bài thi</h1>
             ${document.getElementById('printable-area').outerHTML}
         `;
         const printWindow = window.open('', '', 'width=800,height=600');
@@ -141,80 +140,90 @@ const statistics = () => {
         printWindow.document.close();
     };
 
-
-
     return (
-
         <div className="container">
-            <ul className="tabs">
-                <li
-                    className={`tab ${activeTab === 1 ? '' : 'tabHidden'}`}
-                    onClick={() => handleTabClick(1)}
-                >
-                    Danh sách sinh viên
-                </li>
-                <li
-                    className={`tab ${activeTab === 2 ? '' : 'tabHidden'}`}
-                    onClick={() => handleTabClick(2)}
-                >
-                    Biểu đồ
-                </li>
-            </ul>
+            <div style={{ textAlign: 'right', paddingBottom: '10px' }}>
+                <Button variant="outlined" onClick={exportToExcel}>
+                    Excel
+                </Button>
+                <Button variant="outlined" onClick={handlePrint} style={{ marginLeft: '10px' }}>
+                    In
+                </Button>
+            </div>
+            <div className="search-container">
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
 
-
-            <div className={`content ${activeTab === 1 ? '' : 'hidden'}`}>
-                <div style={{ textAlign: 'right', paddingBottom: '10px' }}>
-                    <Button variant="outlined" onClick={exportToExcel}>
-                        Excel
-                    </Button>
-                    <Button variant="outlined" onClick={handlePrint} style={{ marginLeft: '10px' }}>
-                        In
-                    </Button>
-                </div>
-                <table className="table" id="printable-area">
-                    <thead>
-                    <tr >
-                        <th>STT</th>
-                        <th>Tên Sinh Viên</th>
-                        <th>Mã Sinh Viên</th>
-                        <th>Điểm</th>
-                        <th>Tỷ Lệ Hoàn Thành</th>
-                        <th>Trạng Thái</th>
-                        <th>Thời Gian Nộp</th>
+            <table className="table" id="printable-area">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>
+                        <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
+                            Bài Thi
+                        </button>
+                    </th>
+                    <th>
+                        <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'exam')}>
+                            Kỳ Thi
+                        </button>
+                    </th>
+                    <th>Điểm Trung Bình</th>
+                    <th>Tỷ Lệ Hoàn Thành</th>
+                    <th>Tổng số SV tham gia</th>
+                </tr>
+                </thead>
+                <tbody>
+                {filteredTests.map((test, index) => (
+                    <tr key={test.id}>
+                        <td>{index + 1}</td>
+                        <td
+                            className="clickable"
+                            onClick={() => handleTestClick(test.id)}
+                        >
+                            {test.name}
+                        </td>
+                        <td>{test.exam}</td>
+                        <td>{test.mediumScore}</td>
+                        <td>{test.completionRate}</td>
+                        <td>{test.cntStudent}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {tests.map((test, index) => (
-                        <tr key={test.id}>
-                            <td>{index + 1}</td>
-                            <td>{test.fullname}</td>
-                            <td>{test.username}</td>
-                            <td>{test.score}</td>
-                            <td>{test.scoreRatio}</td>
-                            <td>{test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài'}</td>
-                            <td>{test.submitTime}</td>
-                        </tr>
+                ))}
+                </tbody>
+            </table>
+            <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleCloseMenu}
+            >
+                {filterBy === 'name' &&
+                    uniqueNames.map((name) => (
+                        <MenuItem key={name} onClick={() => handleFilterSelect(name)}>
+                            {name}
+                        </MenuItem>
                     ))}
-                    </tbody>
-                </table>
+                {filterBy === 'exam' &&
+                    uniqueExams.map((exam) => (
+                        <MenuItem key={exam} onClick={() => handleFilterSelect(exam)}>
+                            {exam}
+                        </MenuItem>
+                    ))}
+                {filterBy === 'type' &&
+                    uniqueTypes.map((type) => (
+                        <MenuItem key={type} onClick={() => handleFilterSelect(type)}>
+                            {type === 0 ? 'Tự Do' : 'Có Thời Hạn'}
+                        </MenuItem>
+                    ))}
 
-            </div>
-
-            {/* Nội dung của tab 2 */}
-            <div className={`content ${activeTab === 2 ? '' : 'hidden'}`}>
-                <div className = {'chart'}>
-                    <div style={{ width: '300px', height: '300px' }}>
-                        <Pie data={pieChartData} />
-                        <p>Biểu Đồ Tròn: Tỷ Lệ Hoàn Thành</p>
-                    </div>
-                    <div style={{ width: '500px', height: '500px', }}>
-                        <Bar data={barChartData} options={barChartOptions} />
-                        <p>Biểu Đồ Cột: Tần Suất Các Mức Điểm</p>
-                    </div>
-                </div>
-            </div>
+            </Menu>
         </div>
     );
 };
 
-export default statistics;
+export default Statistics;
