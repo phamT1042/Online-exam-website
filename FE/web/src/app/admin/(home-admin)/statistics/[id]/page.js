@@ -95,7 +95,7 @@ const statistics = () => {
                 'Mã Sinh Viên': test.username,
                 'Điểm': test.score,
                 'Tỷ Lệ Đúng': test.scoreRatio,
-                'Trạng Thái': test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài',
+                'Trạng Thái': test.completed ? 'Hoàn thành' : 'Không hoàn thành',
                 'Thời Gian Nộp':test.submitTime,
             }))
         );
@@ -191,7 +191,7 @@ const statistics = () => {
                             <td>{test.username}</td>
                             <td>{test.score}</td>
                             <td>{test.scoreRatio}</td>
-                            <td>{test.completed ? 'Đã Nộp Bài' : 'Chưa Nộp Bài'}</td>
+                            <td>{test.completed ? 'Hoàn thành' : 'Không hoàn thành'}</td>
                             <td>{test.submitTime}</td>
                         </tr>
                     ))}
