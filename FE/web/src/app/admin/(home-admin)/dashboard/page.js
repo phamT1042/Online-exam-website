@@ -761,6 +761,14 @@ const page = () => {
             />
           </Form.Item>
 
+          <Form.Item label="Mật khẩu" name="password">
+            <Input.Password
+              onChange={(e) =>
+                setUserCur({ ...userCur, password: e.target.value })
+              }
+            />
+          </Form.Item>
+
           <Form.Item
             label="Họ và tên"
             name="fullName"
