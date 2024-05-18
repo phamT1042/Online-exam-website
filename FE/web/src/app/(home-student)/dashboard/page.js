@@ -193,36 +193,42 @@ const TestTable = () => {
                 />
                 <table>
                     <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>
-                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
-                                    Bài Thi
-                                </button>
-                            </th>
-                            <th>
-                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'exam')}>
-                                    Kỳ Thi
-                                </button>
-                            </th>
-                            <th>
-                                <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'type')}>
-                                    Loại
-                                </button>
-                            </th>
-                            <th>Trạng Thái</th>
-                        </tr>
+                    <tr>
+                        <th>STT</th>
+                        <th>
+                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'name')}>
+                                Bài Thi
+                            </button>
+                        </th>
+                        <th>
+                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'exam')}>
+                                Kỳ Thi
+                            </button>
+                        </th>
+                        <th>
+                            <button className="filter-button" onClick={(event) => handleOpenMenu(event, 'type')}>
+                                Loại
+                            </button>
+                        </th>
+                        <th>Thời Gian Bắt Đầu</th>
+                        <th>Thời Gian Kết Thúc</th>
+                        <th>Thời Gian Làm Bài</th>
+                        <th>Trạng Thái</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {filteredTests.map((test, index) => (
-                            <tr key={test.id}>
-                                <td>{index + 1}</td>
-                                <td>{test.name}</td>
-                                <td>{test.exam}</td>
-                                <td>{test.type === 0 ? 'Tự Do' : 'Có Thời Hạn'}</td>
-                                <td>{renderTestStatus(test.canEnter, test.id)}</td>
-                            </tr>
-                        ))}
+                    {filteredTests.map((test, index) => (
+                        <tr key={test.id}>
+                            <td>{index + 1}</td>
+                            <td>{test.name}</td>
+                            <td>{test.exam}</td>
+                            <td>{test.type === 0 ? 'Tự Do' : 'Có Thời Hạn'}</td>
+                            <td>{test.startTime}</td>
+                            <td>{test.endTime}</td>
+                            <td>{test.duration}</td>
+                            <td>{renderTestStatus(test.canEnter, test.id)}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
                 <Menu
